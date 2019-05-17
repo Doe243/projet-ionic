@@ -1,5 +1,7 @@
 {
   "name": "projet-ionic(metro_mobilite)",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
