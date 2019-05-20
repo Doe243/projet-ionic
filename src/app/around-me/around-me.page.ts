@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 
+import { ApiService } from '../services/api.service'
+
 @Component({
   selector: 'app-around-me',
   templateUrl: './around-me.page.html',
@@ -10,7 +12,13 @@ export class AroundMePage implements OnInit {
   map:L.Map
   userPos: L.Marker
   stationMarker: L.Marker[]
-  constructor() { }
+  constructor
+  (
+    private apiService : ApiService
+  ) 
+  { 
+
+  }
 
   
   ngOnInit() {
@@ -42,6 +50,9 @@ export class AroundMePage implements OnInit {
       this.userPos.remove()
     }
     this.userPos = L.marker(e.latlng).addTo(this.map)
+    this.apiService.getData(false,"aroundMe",{lat:e.latitude,lng:e.longitude}).subscribe(res=>{
+      console.log(res)
+    })
   }
 
   onLocationError(e)
