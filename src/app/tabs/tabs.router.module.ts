@@ -35,6 +35,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'around-me',
+        children: [
+          {
+            path: '',
+            loadChildren: '../around-me/around-me.module#AroundMePageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/itineraire',
         pathMatch: 'full'
