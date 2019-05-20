@@ -14,14 +14,13 @@ export class ApiService {
   
   constructor
   (
-    private http: HttpClient, 
-    private storage: Storage, 
+    private http: HttpClient 
     
     ) {
     
     }
  
-  getData(forceRefresh: boolean = false, requeteType: string = "base", id: number = 0): Observable<any> {     
+  getData(forceRefresh: boolean = false, requeteType: string = "base", objet: any = null): Observable<any> {     
       // Return real API data and store it locally
       
       if (requeteType == "horaires")
@@ -33,17 +32,17 @@ export class ApiService {
         )
         
       }
-      else if (requeteType == "visite")
+      else if (requeteType == "aroundMe")
       {
-        return this.http.get(`${API_URL}/sites?id_base_site=${id}`).pipe(
+        return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=500&details=true`).pipe(
           map(res => 
-            res['features']
+            res
           )
         )
       }
       else if (requeteType == "maille")
       {
-        return this.http.get(`${API_URL}/gn_monitoring/siteareas/${id}?id_area_type=32`).pipe(
+        return this.http.get(`${API_URL}/`).pipe(
           map(res => 
             res['features']
           )
