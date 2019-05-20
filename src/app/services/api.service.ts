@@ -27,8 +27,9 @@ export class ApiService {
       if (requeteType == "horaires")
       {
         return this.http.get(`${API_URL}/ficheHoraires/json?route=SEM:C&time=1449593400000`).pipe(
-          map(res => 
-            res['horaires']
+          map(res => {
+            console.log('RAW',res);
+            res['horaires']}
           )
         )
         
