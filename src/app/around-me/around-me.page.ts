@@ -36,8 +36,8 @@ export class AroundMePage implements OnInit {
 			}).addTo(this.map);
 		//on géolocalise l'utilisateur
 		this.map.locate({
-			setView: true, 
-			maxZoom: 19,
+			setView: false, 
+			maxZoom: 18,
 			enableHighAccuracy: true
 		});
 
@@ -46,6 +46,7 @@ export class AroundMePage implements OnInit {
 	onLocationFound(e)
 	{
 		console.log(e)
+		this.map.setView(e.latlng,16)
 		if(this.userPos)
 		{
 			this.userPos.remove() 
@@ -78,5 +79,11 @@ export class AroundMePage implements OnInit {
 		console.error(e.message)//on vois le message d'erreur sur la console
 			alert(e.message + "\rNous allons afficher la carte par défaut");//on dit pourquoi on as pas trouver l'utilisateur
 		this.map.setView({lat:45.1936167,lng:5.7191462},11)
+	}
+
+	recentrer()
+	{
+		this.map.setView(this.userPos.getLatLng(),16)
+		
 	}
 }
