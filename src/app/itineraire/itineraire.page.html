@@ -6,20 +6,20 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-item-group margin>
-    <ion-item>
-      <ion-label position="floating">De :</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label position="floating">A :</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-  </ion-item-group>
-  
+  <form (ngSubmit)="underStation()" >
+    <ion-item-group margin>
+      <ion-item>
+        <ion-label position="floating">De :</ion-label>
+        <ion-input [(ngModel)] = "arretDepart" type="text" name="depart"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label position="floating">A :</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+    </ion-item-group>
 
-  <ion-button expand="block">Rechercher</ion-button>
-
-  <div id="mapItineraire" style="width:100%; height:50%"></div>
+    <ion-button expand="block" type="submit">Rechercher</ion-button>
+  </form>
+  <div id="mapItineraire" style="width:100%; height:65%"></div>
 </ion-content>
