@@ -7,10 +7,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-label>holaaa </ion-label>
+  <ion-label>xxx {{nom}} </ion-label>
   <ion-list>
-    <ion-item *ngFor="let item of (res | async)" [routerLink]="['/','horaires',item.imdbID]">
-      {{item.arrets}}
-    </ion-item>
+    <ion-button *ngFor="let item of lines">
+      {{item.shortName}}
+    </ion-button>
   </ion-list>
 </ion-content>

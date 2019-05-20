@@ -8,7 +8,8 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit{
-  res:Observable<any>;
+  lines:JSON;
+  nom;
 
   constructor(private apiService : ApiService){}
 
@@ -17,8 +18,13 @@ export class Tab2Page implements OnInit{
   }
   
   searchChange(){
-    this.apiService.getData(false,"horaires").subscribe(res=>{
-      console.log(res)
+    this.apiService.getData(false,"lines").subscribe(line=>{
+      console.log(line)
+       line.forEach(element => {
+        if(element.type=="TRAM"){
+        this.lines = element
+    }
+    });
     })
   }
 

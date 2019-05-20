@@ -23,11 +23,11 @@ export class ApiService {
   getData(forceRefresh: boolean = false, requeteType: string = "base", objet: any = null): Observable<any> {     
       // Return real API data and store it locally
       
-      if (requeteType == "horaires")
+      if (requeteType == "lines")
       {
-        return this.http.get(`${API_URL}/ficheHoraires/json?route=SEM:C&time=1449593400000`).pipe(
-          map(res => 
-            res
+        return this.http.get(`${API_URL}/routers/default/index/routes`).pipe(
+          map(lines => 
+            lines
           )
         )
         
