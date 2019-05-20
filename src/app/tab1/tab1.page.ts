@@ -15,12 +15,11 @@ export class Tab1Page implements OnInit {
   }
 
   ionViewDidEnter(){
-    var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 16
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 16
           attribution: '© OpenStreetMap contributors',
           maxZoom: 19
-      });
+      }).addTo(this.map);
   
-      this.map.addLayer(osmLayer);
   }
 
 }
