@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-itineraire',
+  templateUrl: 'itineraire.page.html',
+  styleUrls: ['itineraire.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class ItinerairePage implements OnInit {
   map:L.Map
   ngOnInit() {
       this.map = new L.Map('mapItineraire').setView([48.833, 2.333], 7); // LIGNE 14
