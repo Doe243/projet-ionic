@@ -1,27 +1,25 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      LP Mobilité
+      Rechercher un itinéraire
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content padding>
-  <ion-text color="#000">
-    <h1>Rechercher un itinéraire</h1>
-  </ion-text>
-
-  <ion-item>
-    <ion-label position="floating">De :</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">A :</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
+<ion-content>
+  <ion-item-group margin>
+    <ion-item>
+      <ion-label position="floating">De :</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">A :</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+  </ion-item-group>
+  
 
   <ion-button expand="block">Rechercher</ion-button>
 
-  <div id="mapItineraire" style="width:100%; height:100%"></div>
+  <div id="mapItineraire" style="width:100%; height:50%"></div>
 </ion-content>
