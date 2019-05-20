@@ -36,7 +36,7 @@ export class ApiService {
       {
         return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=500&details=true`).pipe(
           map(res => 
-            res
+            res 
           )
         )
       }
