@@ -12,10 +12,12 @@ export class Tab2Page implements OnInit{
 
   constructor(private apiService : ApiService){}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchChange()
+  }
   
   searchChange(){
-    this.apiService.getData(false,"horaires",null).subscribe(res=>{
+    this.apiService.getData(false,"horaires").subscribe(res=>{
       console.log(res)
     })
   }
