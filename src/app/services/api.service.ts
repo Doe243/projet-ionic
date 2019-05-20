@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable, from } from 'rxjs';
 import { tap, map, catchError } from "rxjs/operators";
   
-const API_URL = 'http://demo.geonature.fr/geonature/api'; //API
+const API_URL = 'http://data.metromobilite.fr/api'; //API
 
 
 
@@ -24,13 +24,14 @@ export class ApiService {
   getData(forceRefresh: boolean = false, requeteType: string = "base", id: number = 0): Observable<any> {     
       // Return real API data and store it locally
       
-      if (requeteType == "base")
+      if (requeteType == "horaires")
       {
-        return this.http.get(`${API_URL}/sites?id_application=7&id_area_type=25`).pipe(
+        return this.http.get(`${API_URL}/ficheHoraires/json?route=SEM:C&time=1449593400000`).pipe(
           map(res => 
-            res['features']
+            res['horaires']
           )
         )
+        console.log('RAW',res);
       }
       else if (requeteType == "visite")
       {
@@ -66,6 +67,7 @@ export class ApiService {
       }
       
     }
+   
 }
 
 //export var reponse;
