@@ -8,6 +8,8 @@ import * as L from 'leaflet';
 })
 export class AroundMePage implements OnInit {
   map:L.Map
+  userPos: L.Marker
+  stationMarker: L.Marker[]
   constructor() { }
 
   
@@ -35,7 +37,11 @@ export class AroundMePage implements OnInit {
   onLocationFound(e)
   {
     console.log(e)
-    L.marker(e.latlng)
+    if(this.userPos)
+    {
+      this.userPos.remove()
+    }
+    this.userPos = L.marker(e.latlng).addTo(this.map)
   }
 
   onLocationError(e)
