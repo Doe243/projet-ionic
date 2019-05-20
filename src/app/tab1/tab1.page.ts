@@ -1,8 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {}
+export class Tab1Page implements OnInit {
+  map:L.Map
+  ngOnInit() {
+      this.map = new L.Map('map').setView([48.833, 2.333], 7); // LIGNE 14
+
+      
+  }
+
+  ionViewDidEnter(){
+    var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 16
+          attribution: '© OpenStreetMap contributors',
+          maxZoom: 19
+      });
+  
+      this.map.addLayer(osmLayer);
+  }
+
+}
