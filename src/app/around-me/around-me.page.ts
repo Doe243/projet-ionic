@@ -59,7 +59,7 @@ export class AroundMePage implements OnInit {
 		}
 		this.userPos = L.marker(e.latlng,).addTo(this.map)
 		this.apiService.getData(false,"aroundMe",{lat:e.latitude,lng:e.longitude}).subscribe(res=>{
-			console.log(res)
+			console.log('xxx',res)
 			res.forEach(element => {
 				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon},).addTo(this.map)
 			});
