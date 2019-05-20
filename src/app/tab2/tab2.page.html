@@ -7,9 +7,31 @@
 </ion-header>
 
 <ion-content>
-  <ion-label>xxx {{nom}} </ion-label>
+  <ion-label>Réseau TAG</ion-label>
   <ion-list>
-    <ion-button *ngFor="let item of lines">
+    <ion-button *ngFor="let item of trams">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+  
+  <ion-list>
+    <ion-button *ngFor="let item of CHRONO">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+  <ion-list>
+    <ion-button *ngFor="let item of PROXIMO">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+  <ion-list>
+    <ion-button *ngFor="let item of FLEXO">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+  <ion-label>Réseau Transisère</ion-label>
+  <ion-list>
+    <ion-button *ngFor="let item of C38">
       {{item.shortName}}
     </ion-button>
   </ion-list>
