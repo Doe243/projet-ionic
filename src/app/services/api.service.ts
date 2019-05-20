@@ -31,7 +31,7 @@ export class ApiService {
             res['horaires']
           )
         )
-        console.log('RAW',res);
+        
       }
       else if (requeteType == "visite")
       {
