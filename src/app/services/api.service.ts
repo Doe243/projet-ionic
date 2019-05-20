@@ -40,9 +40,9 @@ export class ApiService {
           )
         )
       }
-      else if (requeteType == "maille")
+      else if (requeteType == "itineraire")
       {
-        return this.http.get(`${API_URL}/`).pipe(
+        return this.http.get(`${API_URL}/findType/json?types=arret&query=${objet}`).pipe(
           map(res => 
             res['features']
           )
