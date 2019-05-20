@@ -40,6 +40,7 @@ export class AroundMePage implements OnInit {
 			maxZoom: 18,
 			enableHighAccuracy: true
 		});
+		this.map.invalidateSize()
 
 	}
 
