@@ -6,4 +6,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-label>xxx {{nom}} </ion-label>
+  <ion-list>
+    <ion-button *ngFor="let item of lines">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+</ion-content>

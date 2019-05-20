@@ -32,7 +32,7 @@ export class AroundMePage implements OnInit {
 	ionViewDidEnter(){
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 16
 				attribution: '© OpenStreetMap contributors',
-				maxZoom: 18
+				maxZoom: 19
 			}).addTo(this.map);
 		//on géolocalise l'utilisateur
 		this.map.locate({
@@ -50,7 +50,7 @@ export class AroundMePage implements OnInit {
 		this.map.setView(e.latlng,16)
 		if(this.userPos)
 		{
-			this.userPos.remove() 
+			this.userPos.remove()
 		}
 		if(this.stationMarker.length > 0)
 		{
@@ -59,17 +59,11 @@ export class AroundMePage implements OnInit {
 				this.stationMarker[i].remove()
 			}			
 		}
-		this.userPos = L.marker(e.latlng).addTo(this.map)
-		this.userPos.setIcon(L.icon({
-			iconUrl:"assets/leaflet/marker-iconRed.png",
-			shadowUrl:'assets/leaflet/marker-shadow.png'
-		}))
-		this.userPos.bindPopup("Vous êtes ici")
+		this.userPos = L.marker(e.latlng,).addTo(this.map)
 		this.apiService.getData(false,"aroundMe",{lat:e.latitude,lng:e.longitude}).subscribe(res=>{
 			console.log(res)
 			res.forEach(element => {
-				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon}).addTo(this.map)
-				this.stationMarker[element].bindPopup(element.name)
+				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon},).addTo(this.map)
 			});
 		})
 	}
