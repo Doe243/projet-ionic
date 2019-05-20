@@ -34,9 +34,9 @@ export class ApiService {
       }
       else if (requeteType == "aroundMe")
       {
-        return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=1000&details=true`).pipe(
+        return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=500&details=true`).pipe(
           map(res => 
-            res
+            res 
           )
         )
       }
