@@ -9,7 +9,7 @@ import * as L from 'leaflet';
 export class Tab1Page implements OnInit {
   map:L.Map
   ngOnInit() {
-      this.map = new L.Map('map').setView([48.833, 2.333], 7); // LIGNE 14
+      this.map = new L.Map('mapItineraire').setView([48.833, 2.333], 7); // LIGNE 14
 
       
   }

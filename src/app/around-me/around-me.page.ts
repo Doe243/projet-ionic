@@ -12,7 +12,7 @@ export class AroundMePage implements OnInit {
 
   
   ngOnInit() {
-      this.map = new L.Map('map'); // LIGNE 14
+      this.map = new L.Map('mapAroundMe'); // LIGNE 14
       //on setup ce qu'il se passe quand on tente de géolocaliser l'utilisateur
       this.map.on('locationfound', (e)=> {this.onLocationFound(e)});
       this.map.on('locationerror', (e)=> {this.onLocationError(e)});     
