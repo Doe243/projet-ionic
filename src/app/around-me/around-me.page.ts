@@ -83,7 +83,10 @@ export class AroundMePage implements OnInit {
 
 	recentrer()
 	{
-		this.map.setView(this.userPos.getLatLng(),16)
-		
+		this.map.locate({
+			setView: false, 
+			maxZoom: 18,
+			enableHighAccuracy: true
+		});
 	}
 }
