@@ -34,33 +34,33 @@ export class ApiService {
       }
       else if (requeteType == "aroundMe")
       {
-        return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=500&details=true`).pipe(
+        return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=${objet['distance']}&details=true`).pipe(
           map(res => 
             res 
           )
         )
       }
-      else if (requeteType == "maille")
+      else if (requeteType == "itineraire")
       {
-        return this.http.get(`${API_URL}/`).pipe(
+        return this.http.get(`${API_URL}/findType/json?types=arret&query=${objet}`).pipe(
           map(res => 
             res['features']
           )
         )
       }
-      else if (requeteType == "observeur")
+      else if (requeteType == "horaireArret")
       {
-        return this.http.get(`${API_URL}/users/menu/1`).pipe(
+        return this.http.get(`${API_URL}/routers/default/index/stops/${objet}/stoptimes`).pipe(
           map(res =>
-            [res]
+            res
           )
         )
       }
-      else if (requeteType == "perturbations")
+      else if (requeteType == "ficheHoraire")
       {
-        return this.http.get(`${API_URL}/nomenclatures/nomenclature/TYPE_PERTURBATION?regne=&group2_inpn=&orderby=label_default`).pipe(
+        return this.http.get(`${API_URL}/ficheHoraires/json?route=${objet}`).pipe(
           map(res =>
-            res['values']
+            res
           )
         )
       }

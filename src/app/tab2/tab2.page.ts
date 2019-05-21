@@ -37,7 +37,7 @@ export class Tab2Page implements OnInit{
   }
   TakeHours(id){
     console.log("il marche");
-    this.router.navigate(['horaires',{id:id}])
+    this.router.navigate(['horaire',{id:id}])
   }
   searchChange(){
     
