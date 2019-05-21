@@ -56,14 +56,33 @@ export class HorairePage implements OnInit {
 			console.log(res)
 			
 				this.horaireAller = []
-				this.horaireAller.push(res[1]["times"][0])
-				this.horaireAller.push(res[1]["times"][1])
-				this.horaireAller.push(res[1]["times"][2])  
+				if(res[1]["times"][0])
+				{
+					this.horaireAller.push(res[1]["times"][0])
+				}
+				if(res[1]["times"][1])
+				{
+					this.horaireAller.push(res[1]["times"][1])
+				}
+				if(res[1]["times"][2])
+				{
+					this.horaireAller.push(res[1]["times"][2])
+				}
 
 				this.horaireRetour = []
-				this.horaireRetour.push(res[0]["times"][0])
-				this.horaireRetour.push(res[0]["times"][1])
-				this.horaireRetour.push(res[0]["times"][2])
+
+				if(res[0]["times"][0])
+				{
+					this.horaireRetour.push(res[0]["times"][0])
+				}
+				if(res[0]["times"][1])
+				{
+					this.horaireRetour.push(res[0]["times"][1])
+				}
+				if(res[0]["times"][2])
+				{
+					this.horaireRetour.push(res[0]["times"][2])
+				}
 
 			
 			
