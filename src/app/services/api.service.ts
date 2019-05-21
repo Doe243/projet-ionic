@@ -23,18 +23,18 @@ export class ApiService {
   getData(forceRefresh: boolean = false, requeteType: string = "base", objet: any = null): Observable<any> {     
       // Return real API data and store it locally
       
-      if (requeteType == "horaires")
+      if (requeteType == "lines")
       {
-        return this.http.get(`${API_URL}/ficheHoraires/json?route=SEM:C&time=1449593400000`).pipe(
-          map(res => 
-            res['horaires']
+        return this.http.get(`${API_URL}/routers/default/index/routes`).pipe(
+          map(lines => 
+            lines
           )
         )
         
       }
       else if (requeteType == "aroundMe")
       {
-        return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=500&details=true`).pipe(
+        return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=${objet['distance']}&details=true`).pipe(
           map(res => 
             res 
           )
@@ -48,19 +48,19 @@ export class ApiService {
           )
         )
       }
-      else if (requeteType == "observeur")
+      else if (requeteType == "horaireArret")
       {
-        return this.http.get(`${API_URL}/users/menu/1`).pipe(
+        return this.http.get(`${API_URL}/routers/default/index/stops/${objet}/stoptimes`).pipe(
           map(res =>
-            [res]
+            res
           )
         )
       }
-      else if (requeteType == "perturbations")
+      else if (requeteType == "ficheHoraire")
       {
-        return this.http.get(`${API_URL}/nomenclatures/nomenclature/TYPE_PERTURBATION?regne=&group2_inpn=&orderby=label_default`).pipe(
+        return this.http.get(`${API_URL}/ficheHoraires/json?route=${objet}`).pipe(
           map(res =>
-            res['values']
+            res
           )
         )
       }

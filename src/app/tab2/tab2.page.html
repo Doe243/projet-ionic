@@ -1,9 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab Two
-    </ion-title>
+      <ion-segment (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="Tag">
+            <ion-label>Réseau TAG</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="trans">
+            <ion-label>Réseau Transisère</ion-label>
+          </ion-segment-button>
+        </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+ 
+  <ion-label>Réseau TAG</ion-label>
+  <ion-list>
+    <div *ngFor="let item of trams" style="display: inline">
+      <ion-button (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
+      {{item.shortName}}
+    </ion-button>
+  </div>
+  </ion-list>
+  
+  <ion-list>
+    <ion-button *ngFor="let item of CHRONO">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+  <ion-list>
+    <ion-button *ngFor="let item of PROXIMO">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+  <ion-list>
+    <ion-button *ngFor="let item of FLEXO">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+  <ion-label>Réseau Transisère</ion-label>
+  <ion-list>
+    <ion-button *ngFor="let item of C38">
+      {{item.shortName}}
+    </ion-button>
+  </ion-list>
+</ion-content>

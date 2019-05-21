@@ -22,33 +22,35 @@ export class AroundMePage implements OnInit {
 
   
 	ngOnInit() {
-		this.map = new L.Map('mapAroundMe'); // LIGNE 14
+		this.map = new L.Map('mapAroundMe');
+		L.control.scale().addTo(this.map)
 		//on setup ce qu'il se passe quand on tente de géolocaliser l'utilisateur
 		this.map.on('locationfound', (e)=> {this.onLocationFound(e)});
-		this.map.on('locationerror', (e)=> {this.onLocationError(e)});
-		console.log("stationmarker",this.stationMarker)     
+		this.map.on('locationerror', (e)=> {this.onLocationError(e)});     
 	}
 
 	ionViewDidEnter(){
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { // LIGNE 16
 				attribution: '© OpenStreetMap contributors',
-				maxZoom: 18
+				maxZoom: 19
 			}).addTo(this.map);
 		//on géolocalise l'utilisateur
 		this.map.locate({
-			setView: true, 
-			maxZoom: 19,
+			setView: false, 
+			maxZoom: 18,
 			enableHighAccuracy: true
 		});
+		this.map.invalidateSize()
 
 	}
 
 	onLocationFound(e)
 	{
 		console.log(e)
+		this.map.setView(e.latlng,16)
 		if(this.userPos)
 		{
-			this.userPos.remove() 
+			this.userPos.remove()
 		}
 		if(this.stationMarker.length > 0)
 		{
@@ -57,16 +59,15 @@ export class AroundMePage implements OnInit {
 				this.stationMarker[i].remove()
 			}			
 		}
-		this.userPos = L.marker(e.latlng).addTo(this.map)
+		this.userPos = L.marker(e.latlng,).addTo(this.map)
 		this.userPos.setIcon(L.icon({
 			iconUrl:"assets/leaflet/marker-iconRed.png",
-			shadowUrl:'assets/leaflet/marker-shadow.png'
+			shadowUrl:"assets/leaflet/marker-shadow.png"
 		}))
-		this.userPos.bindPopup("Vous êtes ici")
-		this.apiService.getData(false,"aroundMe",{lat:e.latitude,lng:e.longitude}).subscribe(res=>{
+		this.apiService.getData(false,"aroundMe",{lat:e.latitude,lng:e.longitude,distance:500}).subscribe(res=>{
 			console.log(res)
 			res.forEach(element => {
-				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon}).addTo(this.map)
+				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon},).addTo(this.map)
 				this.stationMarker[element].bindPopup(element.name)
 			});
 		})
@@ -78,5 +79,14 @@ export class AroundMePage implements OnInit {
 		console.error(e.message)//on vois le message d'erreur sur la console
 			alert(e.message + "\rNous allons afficher la carte par défaut");//on dit pourquoi on as pas trouver l'utilisateur
 		this.map.setView({lat:45.1936167,lng:5.7191462},11)
+	}
+
+	recentrer()
+	{
+		this.map.locate({
+			setView: false, 
+			maxZoom: 18,
+			enableHighAccuracy: true
+		});
 	}
 }
