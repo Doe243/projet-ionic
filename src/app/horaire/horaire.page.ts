@@ -18,7 +18,6 @@ export class HorairePage implements OnInit {
 	horaireRetour
 	affichageAller: string
 	affichageRetour: string
-	currentTime = Date.now()/1000
 
 	constructor(
 		private router:Router, 
@@ -63,7 +62,8 @@ export class HorairePage implements OnInit {
 	
 	lectureHoraire(depart, serviceDay)
 	{
-		var result =  this.currentTime -(depart + serviceDay)
-		return result
+		var secondes = depart + serviceDay - Math.round(Date.now()/1000)
+		var minutes = Math.round(secondes/60)
+		return minutes + "min"
 	}
 }
