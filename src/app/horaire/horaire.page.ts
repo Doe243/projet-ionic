@@ -3,16 +3,15 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { ApiService } from '../services/api.service';
 
 @Component({
-	selector: 'app-tab3',
-	templateUrl: 'tab3.page.html',
-	styleUrls: ['tab3.page.scss']
+  selector: 'app-horaire',
+  templateUrl: './horaire.page.html',
+  styleUrls: ['./horaire.page.scss'],
 })
-
-export class Tab3Page {
-	//dans la récupération de l'api:
+export class HorairePage implements OnInit {
+//dans la récupération de l'api:
 	//faut faire "serviceDay"+"scheduledDeparture" pour avoir le timestamp
 	
-	code
+	id
 
 	constructor(
 		private router:Router, 
@@ -21,8 +20,9 @@ export class Tab3Page {
 	)
 	{
 		this.route.params.subscribe(param =>{
-			this.code = param.code
-			this.apiService.getData(false,"ficheHoraire",this.code).subscribe(res =>{
+			this.id = param.id
+			
+			this.apiService.getData(false,"ficheHoraire",this.id).subscribe(res =>{
 				console.log(res)
 			})
 		})
