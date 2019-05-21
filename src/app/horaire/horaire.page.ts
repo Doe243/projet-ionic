@@ -102,4 +102,9 @@ export class HorairePage implements OnInit {
 		var minutes = Math.round(secondes/60)
 		return minutes + "min"
 	}
+
+	goToLigne()
+	{
+		this.router.navigate(['tabs/tab2'])
+	}
 }
