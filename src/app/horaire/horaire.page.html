@@ -9,11 +9,28 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
+  <ion-content >
+    <div id="listeArrets" style="display: block">
       <ion-list>
-        <ion-item>
-          <ion-label>Awesome Label</ion-label>
+        <ion-item *ngFor="let item of arrets" (click)="showHoraire(item.stopId)">
+          <ion-label>
+            <h3>{{item.parentStation.city}}</h3>
+            <p>{{item.parentStation.name}}</p>
+          </ion-label>
         </ion-item>
       </ion-list>
+    </div>  
+    <div id="horaires" style="display: none">
+        <ion-list>
+            <ion-item *ngFor="let item of arrets" (click)="showHoraire(item.parentStation.code)">
+              <ion-label>
+                <h3>{{item.parentStation.city}}</h3>
+                <p>{{item.parentStation.name}}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+    </div>
   </ion-content>
+
+
   

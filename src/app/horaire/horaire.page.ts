@@ -11,7 +11,9 @@ export class HorairePage implements OnInit {
 //dans la récupération de l'api:
 	//faut faire "serviceDay"+"scheduledDeparture" pour avoir le timestamp
 	
-	id
+	idLigne
+  arrets
+  horaire
 
 	constructor(
 		private router:Router, 
@@ -20,10 +22,12 @@ export class HorairePage implements OnInit {
 	)
 	{
 		this.route.params.subscribe(param =>{
-			this.id = param.id
+			this.idLigne = param.id
 			
-			this.apiService.getData(false,"ficheHoraire",this.id).subscribe(res =>{
-				console.log(res)
+			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{
+        console.log(res[0])
+        this.arrets = res[0]["arrets"]
+        
 			})
 		})
 	}
@@ -35,5 +39,13 @@ export class HorairePage implements OnInit {
 	ionViewDidEnter()
 	{
 
-	}
+  }
+  
+  showHoraire(id)
+  {
+    console.log(id)
+    this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>{
+      console.log(res)
+    })
+  }
 }
