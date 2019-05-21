@@ -31,6 +31,9 @@ export class HorairePage implements OnInit {
 			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{
         console.log(res[0])
 				this.arrets = res[0]["arrets"]        
+			},err =>{
+				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
+				console.log(err)
 			})
 		})
 	}
@@ -57,7 +60,12 @@ export class HorairePage implements OnInit {
 			
 			document.getElementById("horaires").style.display = "block"
 			document.getElementById("listeArrets").style.display = "none"
-    })
+		},
+		err =>{
+			console.log(err)
+			alert("Impossible de récupérer les horaires. vérifiez votre connection internet et réessayez")
+			this.router.navigate(['horaire',{id:this.idLigne}])
+		})
 	}
 	
 	lectureHoraire(depart, serviceDay)

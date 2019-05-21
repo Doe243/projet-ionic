@@ -24,9 +24,9 @@
     <div id="horaires" style="display: none">
       <ion-list>
           <ion-list-header>
-              <ion-label>{{affichageAller}}</ion-label>
+              <ion-label><strong>{{affichageAller}}</strong></ion-label>
             </ion-list-header>
-          <ion-item *ngFor="let item of horaireAller">
+          <ion-item *ngFor="let item of horaireAller" color="light">
               <ion-label>
                 <h3>{{item.stopName}}</h3>
                 <p>{{lectureHoraire(item.scheduledDeparture,item.serviceDay)}}</p>
@@ -35,9 +35,9 @@
       </ion-list>
       <ion-list>
           <ion-list-header>
-            <ion-label>{{affichageRetour}}</ion-label>
+            <ion-label><strong>{{affichageRetour}}</strong></ion-label>
           </ion-list-header>
-          <ion-item *ngFor="let item of horaireRetour">
+          <ion-item *ngFor="let item of horaireRetour" color="light">
               <ion-label>
                 <h3>{{item.stopName}}</h3>
                 <p>{{lectureHoraire(item.scheduledDeparture,item.serviceDay)}}</p>
