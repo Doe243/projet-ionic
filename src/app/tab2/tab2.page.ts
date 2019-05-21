@@ -12,7 +12,10 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit{
+  disp = "block";
+  dispTrans = "none";
 @ViewChild(IonSegment) segment: IonSegment;
+lines: Observable<any>;
   public items: Array<{id:String, gtfsId:String, shortName:String, longName:String,
                   color:String, textColor:String, mode:String, type:String, res:String}> = [];
   public trams: Array<{id:String, gtfsId:String, shortName:String, longName:String,
@@ -30,17 +33,26 @@ export class Tab2Page implements OnInit{
 
   ngOnInit() {
     this.segment.value = "Tag";
-    this.searchChange()
+    this.reseaux()
+    this.segmentChanged("Tag")
   }
   segmentChanged(ev: any) {
-    console.log('Segment changed', ev.detail.value);
+    if(ev=="Tag" || ev.detail.value=="Tag"){
+      //this.reseauTag()
+      this.disp = "block"
+      this.dispTrans = "none";
+    }else{
+      console.log(ev.detail.value)
+      //this.reseauTransisere()
+      this.disp = "none";
+      this.dispTrans = "block";
+    }
   }
   TakeHours(id){
     console.log("il marche");
     this.router.navigate(['horaire',{id:id}])
   }
-  searchChange(){
-    
+  reseaux(){
     this.apiService.getData(false,"lines").subscribe(line=>{
       line.forEach(element => {
         this.items.push({
@@ -83,5 +95,25 @@ export class Tab2Page implements OnInit{
       })//end items.foreach
     })
   }
+  /*reseauTransisere(){
+
+    this.apiService.getData(false,"lines").subscribe(line=>{
+      line.forEach(element => {
+        this.items.push({
+          id:element.id,
+          gtfsId:element.gtfsId,
+          shortName:element.shortName,
+          longName:element.longName,
+          color:element.color, 
+          textColor:element.textColor, 
+          mode:element.mode, 
+          type:element.type,
+          res:element.res
+        });//end items.push
+        
+      });//end line.foreach
+
+    })
+  }*/
 
 }
