@@ -54,9 +54,9 @@ export class HorairePage implements OnInit {
 		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
     this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>{
 			console.log(res)
-			this.horaireAller =  res[0]["times"]
+			this.horaireAller =  res[1]["times"]
 
-			this.horaireRetour = res[1]["times"]
+			this.horaireRetour = res[0]["times"]
 			
 			document.getElementById("horaires").style.display = "block"
 			document.getElementById("listeArrets").style.display = "none"
