@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../services/api.service';
 import { LineToLineMappedSource } from 'webpack-sources';
+import { IonSegment } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-tab2',
@@ -9,8 +12,7 @@ import { LineToLineMappedSource } from 'webpack-sources';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit{
-  lines:JSON;
-  lines2:JSON;
+@ViewChild(IonSegment) segment: IonSegment;
   public items: Array<{id:String, gtfsId:String, shortName:String, longName:String,
                   color:String, textColor:String, mode:String, type:String, res:String}> = [];
   public trams: Array<{id:String, gtfsId:String, shortName:String, longName:String,
@@ -24,23 +26,22 @@ export class Tab2Page implements OnInit{
           public C38: Array<{id:String, gtfsId:String, shortName:String, longName:String,
             color:String, textColor:String, mode:String, type:String, res:String}> = [];
             
-  nom;
-  cant: 0
-
-  constructor(private apiService : ApiService){}
+  constructor(private apiService : ApiService, private router: Router){}
 
   ngOnInit() {
+    this.segment.value = "Tag";
     this.searchChange()
   }
-  
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev.detail.value);
+  }
+  TakeHours(id){
+    console.log("il marche");
+    this.router.navigate(['horaires',{id:id}])
+  }
   searchChange(){
     
     this.apiService.getData(false,"lines").subscribe(line=>{
-      /*console.log(line.lenght)
-      for(var i =0; i<=10; i++){
-        var obj = line;
-        console.log(obj[i].type)
-      }*/
       line.forEach(element => {
         this.items.push({
           id:element.id,
@@ -80,8 +81,6 @@ export class Tab2Page implements OnInit{
           this.C38.push(line);//end items.push
         }
       })//end items.foreach
-      //console.log(this.items)
-      //this.lines = line
     })
   }
 
