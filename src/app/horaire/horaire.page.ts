@@ -31,6 +31,9 @@ export class HorairePage implements OnInit {
 			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{
         console.log(res[0])
 				this.arrets = res[0]["arrets"]        
+			},err =>{
+				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
+				console.log(err)
 			})
 		})
 	}
@@ -51,13 +54,46 @@ export class HorairePage implements OnInit {
 		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
     this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>{
 			console.log(res)
-			this.horaireAller =  res[0]["times"]
+			
+				this.horaireAller = []
+				if(res[1]["times"][0])
+				{
+					this.horaireAller.push(res[1]["times"][0])
+				}
+				if(res[1]["times"][1])
+				{
+					this.horaireAller.push(res[1]["times"][1])
+				}
+				if(res[1]["times"][2])
+				{
+					this.horaireAller.push(res[1]["times"][2])
+				}
 
-			this.horaireRetour = res[1]["times"]
+				this.horaireRetour = []
+
+				if(res[0]["times"][0])
+				{
+					this.horaireRetour.push(res[0]["times"][0])
+				}
+				if(res[0]["times"][1])
+				{
+					this.horaireRetour.push(res[0]["times"][1])
+				}
+				if(res[0]["times"][2])
+				{
+					this.horaireRetour.push(res[0]["times"][2])
+				}
+
+			
 			
 			document.getElementById("horaires").style.display = "block"
 			document.getElementById("listeArrets").style.display = "none"
-    })
+		},
+		err =>{
+			console.log(err)
+			alert("Impossible de récupérer les horaires. vérifiez votre connection internet et réessayez")
+			this.router.navigate(['horaire',{id:this.idLigne}])
+		})
 	}
 	
 	lectureHoraire(depart, serviceDay)
@@ -65,5 +101,10 @@ export class HorairePage implements OnInit {
 		var secondes = depart + serviceDay - Math.round(Date.now()/1000)
 		var minutes = Math.round(secondes/60)
 		return minutes + "min"
+	}
+
+	goToLigne()
+	{
+		this.router.navigate(['tabs/tab2'])
 	}
 }
