@@ -12,7 +12,7 @@ export class Tab3Page {
 	//dans la récupération de l'api:
 	//faut faire "serviceDay"+"scheduledDeparture" pour avoir le timestamp
 	
-	sem
+	code
 
 	constructor(
 		private router:Router, 
@@ -21,8 +21,8 @@ export class Tab3Page {
 	)
 	{
 		this.route.params.subscribe(param =>{
-			this.sem = param.sem
-			this.apiService.getData(false,"ficheHoraire",this.sem).subscribe(res =>{
+			this.code = param.code
+			this.apiService.getData(false,"ficheHoraire",this.code).subscribe(res =>{
 				console.log(res)
 			})
 		})

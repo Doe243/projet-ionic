@@ -50,7 +50,7 @@ export class ApiService {
       }
       else if (requeteType == "horaireArret")
       {
-        return this.http.get(`${API_URL}/routers/default/index/stops/SEM:${objet}/stoptimes`).pipe(
+        return this.http.get(`${API_URL}/routers/default/index/stops/${objet}/stoptimes`).pipe(
           map(res =>
             res
           )
@@ -58,7 +58,7 @@ export class ApiService {
       }
       else if (requeteType == "ficheHoraire")
       {
-        return this.http.get(`${API_URL}/ficheHoraires/json?route=SEM:${objet}`).pipe(
+        return this.http.get(`${API_URL}/ficheHoraires/json?route=${objet}`).pipe(
           map(res =>
             res
           )
