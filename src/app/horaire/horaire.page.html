@@ -12,7 +12,7 @@
   <ion-content >
     <div id="listeArrets" style="display: block">
       <ion-list>
-        <ion-item *ngFor="let item of arrets" (click)="showHoraire(item.stopId)">
+        <ion-item *ngFor="let item of arrets" (click)="showHoraire(item.parentStation.code)">
           <ion-label>
             <h3>{{item.parentStation.city}}</h3>
             <p>{{item.parentStation.name}}</p>
@@ -20,15 +20,30 @@
         </ion-item>
       </ion-list>
     </div>  
+    
     <div id="horaires" style="display: none">
-        <ion-list>
-            <ion-item *ngFor="let item of arrets" (click)="showHoraire(item.parentStation.code)">
+      <ion-list>
+          <ion-list-header>
+              <ion-label>{{affichageAller}}</ion-label>
+            </ion-list-header>
+          <ion-item *ngFor="let item of horaireAller">
               <ion-label>
-                <h3>{{item.parentStation.city}}</h3>
-                <p>{{item.parentStation.name}}</p>
+                <h3>{{item.stopName}}</h3>
+                <p>{{lectureHoraire(item.scheduledDeparture,item.serviceDay)}}</p>
               </ion-label>
             </ion-item>
-          </ion-list>
+      </ion-list>
+      <ion-list>
+          <ion-list-header>
+            <ion-label>{{affichageRetour}}</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let item of horaireRetour">
+              <ion-label>
+                <h3>{{item.stopName}}</h3>
+                <p>{{lectureHoraire(item.scheduledDeparture,item.serviceDay)}}</p>
+              </ion-label>
+            </ion-item>
+      </ion-list>
     </div>
   </ion-content>
 
