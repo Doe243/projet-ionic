@@ -17,7 +17,7 @@
       <ion-grid>
       <h3>TRAM</h3>
         <ion-row>
-          <ion-col *ngFor="let item of trams">
+          <ion-col *ngFor="let item of trams" size = "2">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,'color':'#'+item.textColor}">
                   <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
                     {{item.shortName}}
@@ -32,7 +32,7 @@
       <ion-grid>
       <h3>CHRONO</h3>
         <ion-row>
-          <ion-col *ngFor="let item of CHRONO">
+          <ion-col *ngFor="let item of CHRONO" size = "2">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
                   <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
                     {{item.shortName}}
@@ -47,7 +47,7 @@
       <ion-grid>
       <h3>PROXIMO</h3>
         <ion-row>
-          <ion-col *ngFor="let item of PROXIMO">
+          <ion-col *ngFor="let item of PROXIMO" size = "2">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
                   <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
                     {{item.shortName}}
@@ -62,7 +62,7 @@
       <ion-grid>
       <h3>FLEXO</h3>
         <ion-row>
-          <ion-col *ngFor="let item of FLEXO">
+          <ion-col *ngFor="let item of FLEXO" size = "2">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
                   <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
                     {{item.shortName}}
@@ -80,7 +80,7 @@
   <div>
       <ion-grid>
         <ion-row>
-          <ion-col *ngFor="let item of C38">
+          <ion-col *ngFor="let item of C38" size = "3">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
                   <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
                     {{item.shortName}}

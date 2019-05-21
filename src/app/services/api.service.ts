@@ -50,7 +50,7 @@ export class ApiService {
       }
       else if (requeteType == "horaireArret")
       {
-        return this.http.get(`${API_URL}/routers/default/index/stops/${objet}/stoptimes`).pipe(
+        return this.http.get(`${API_URL}/routers/default/index/clusters/${objet.arret}/stoptimes?route=${objet.ligne}`).pipe(
           map(res =>
             res
           )
