@@ -12,13 +12,12 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-        <ion-row [ngStyle]="{'display': disp}">
-            <ion-col *ngFor="let item of trams" style="display: inline" size="2" size-sm>
-      <ion-card (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
+  <ion-list class="list" [ngStyle]="{'display': disp}">
+    <div class="list" *ngFor="let item of trams" style="display: inline">
+      <ion-card class="img" (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
       {{item.shortName}}
     </ion-card>
-            </ion-col>
+  </div>
   <div style="display: block; padding-top: 10px">
   <div *ngFor="let item of CHRONO" style="display: inline">
       <ion-button (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
@@ -40,8 +39,7 @@
         </ion-button>
       </div>
     </div>
-  </ion-row>
-  <ion-row>
+  </ion-list>
   <ion-list [ngStyle]="{'display': dispTrans}">
     <div style="display: block; padding-top: 10px">
         <div *ngFor="let item of C38" style="display: inline">
@@ -51,6 +49,4 @@
         </div>
       </div>
   </ion-list>
-</ion-row>
-  </ion-grid>
 </ion-content>
