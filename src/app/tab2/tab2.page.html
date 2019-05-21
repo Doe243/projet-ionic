@@ -12,35 +12,41 @@
 </ion-header>
 
 <ion-content>
- 
-  <ion-label>Réseau TAG</ion-label>
-  <ion-list>
-    <div *ngFor="let item of trams" style="display: inline">
+  <ion-list class="list" [ngStyle]="{'display': disp}">
+    <div class="list" *ngFor="let item of trams" style="display: inline">
+      <ion-card class="img" (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
+      {{item.shortName}}
+    </ion-card>
+  </div>
+  <div style="display: block; padding-top: 10px">
+  <div *ngFor="let item of CHRONO" style="display: inline">
       <ion-button (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
       {{item.shortName}}
     </ion-button>
   </div>
+</div>
+<div style="display: block; padding-top: 10px">
+    <div *ngFor="let item of PROXIMO" style="display: inline">
+        <ion-button (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
+        {{item.shortName}}
+      </ion-button>
+    </div>
+  </div>
+  <div style="display: block; padding-top: 10px">
+      <div *ngFor="let item of FLEXO" style="display: inline">
+          <ion-button (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
+          {{item.shortName}}
+        </ion-button>
+      </div>
+    </div>
   </ion-list>
-  
-  <ion-list>
-    <ion-button *ngFor="let item of CHRONO">
-      {{item.shortName}}
-    </ion-button>
-  </ion-list>
-  <ion-list>
-    <ion-button *ngFor="let item of PROXIMO">
-      {{item.shortName}}
-    </ion-button>
-  </ion-list>
-  <ion-list>
-    <ion-button *ngFor="let item of FLEXO">
-      {{item.shortName}}
-    </ion-button>
-  </ion-list>
-  <ion-label>Réseau Transisère</ion-label>
-  <ion-list>
-    <ion-button *ngFor="let item of C38">
-      {{item.shortName}}
-    </ion-button>
+  <ion-list [ngStyle]="{'display': dispTrans}">
+    <div style="display: block; padding-top: 10px">
+        <div *ngFor="let item of C38" style="display: inline">
+            <ion-button (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}">
+            {{item.shortName}}
+          </ion-button>
+        </div>
+      </div>
   </ion-list>
 </ion-content>
