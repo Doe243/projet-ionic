@@ -60,10 +60,15 @@ export class AroundMePage implements OnInit {
 			}			
 		}
 		this.userPos = L.marker(e.latlng,).addTo(this.map)
-		this.apiService.getData(false,"aroundMe",{lat:e.latitude,lng:e.longitude}).subscribe(res=>{
+		this.userPos.setIcon(L.icon({
+			iconUrl:"assets/leaflet/marker-iconRed.png",
+			shadowUrl:"assets/leaflet/marker-shadow.png"
+		}))
+		this.apiService.getData(false,"aroundMe",{lat:e.latitude,lng:e.longitude,distance:500}).subscribe(res=>{
 			console.log(res)
 			res.forEach(element => {
 				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon},).addTo(this.map)
+				this.stationMarker[element].bindPopup(element.name)
 			});
 		})
 	}
