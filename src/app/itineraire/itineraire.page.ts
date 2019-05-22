@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as L from 'leaflet';
 import { ApiService } from '../services/api.service'
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-itineraire',
@@ -8,10 +8,6 @@ import { ApiService } from '../services/api.service'
   styleUrls: ['itineraire.page.scss']
 })
 export class ItinerairePage implements OnInit {
-	stationMarker: L.Marker[] = []
-  map:L.Map
-  depart: L.Marker
-  arriver: L.Marker
   arretDepart: string
   arretArriver: string
   time: string
@@ -22,6 +18,9 @@ export class ItinerairePage implements OnInit {
   coordones2LA;
   coordones2LO;
 
+  resultat
+
+  recherche
   constructor
 	(
 		private apiService : ApiService
@@ -30,18 +29,12 @@ export class ItinerairePage implements OnInit {
 
 	}
 
-  ngOnInit() {
-      this.map = new L.Map('mapItineraire').setView({lat:45.1936167,lng:5.7191462},16);   
+  ngOnInit() {  
   }
 
   ionViewDidEnter()
   {
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors',
-          maxZoom: 20
-      }).addTo(this.map);
-      this.map.invalidateSize();
-  
+      
   }
 
   chercheDepart()
@@ -71,8 +64,84 @@ export class ItinerairePage implements OnInit {
   chercheItineraire(){
     this.apiService.getData(false,"rechercheItineraire",{lngD:this.coordones1LO,latD:this.coordones1LA,
       lngA:this.coordones2LO,latA:this.coordones2LA,time:this.time,date:this.date}).subscribe(res =>{
-        console.log("il marche",res);
+        console.log("chemin",res);
+        this.resultat = res["plan"]["itineraries"]
       })
   }
 
+  convertTimeStamp(timestamp)
+  {
+    var h = new Date(timestamp).getHours()
+    var m = new Date(timestamp).getMinutes();
+    var mToString
+    if(m <10)
+    {
+      mToString = "0"+m
+    }
+    else{
+      mToString = m
+    }
+    return h+":"+mToString
+  }
+
+  convertToMinutes(minutes)
+  {
+    return Math.round(minutes/60)
+  }
+
+  listeRechercheDepart(val)
+  {
+    if (val.length > 2)
+    {
+      document.getElementById("rechercheDepart").style.display = "block"
+      this.apiService.getData(false,"listLieu",val).subscribe(res =>{
+        this.recherche = res["features"]
+      })
+    }
+    else
+    {
+      this.recherche = []
+      document.getElementById("rechercheDepart").style.display = "none"
+    }
+  }
+
+  setRechercheDepart(val)
+  {
+    this.arretDepart = val
+    document.getElementById("rechercheDepart").style.display = "none"
+  }
+  listeRechercheArrivee(val: string)
+  {
+    
+    if (val.length > 2)
+    {
+      document.getElementById("rechercheArrivee").style.display = "block"
+      this.apiService.getData(false,"listLieu",val).subscribe(res =>{
+        this.recherche = res["features"]
+      })
+    }
+    else
+    {
+      this.recherche = []
+      document.getElementById("rechercheArrivee").style.display = "none"
+    }
+    
+  }
+
+  setRechercheArrivee(val)
+  {
+    this.arretArriver = val
+    document.getElementById("rechercheArrivee").style.display = "none"
+  }
+
+  closeEverything()
+  {
+    document.getElementById("rechercheDepart").style.display = "none"
+    document.getElementById("rechercheArrivee").style.display = "none"
+  }
+
+  ionViewDidLeave()
+  {
+    this.closeEverything()
+  }
 }
