@@ -2,8 +2,19 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },  { path: 'around-me', loadChildren: './around-me/around-me.module#AroundMePageModule' },
-  { path: 'horaire', loadChildren: './horaire/horaire.module#HorairePageModule' }
+  { path: 'itineraire', loadChildren: './itineraire/itineraire.module#ItinerairePageModule' },
+  { path: 'around-me', loadChildren: './around-me/around-me.module#AroundMePageModule' },
+  { path: 'horaire', loadChildren: './horaire/horaire.module#HorairePageModule' },
+  {
+    path: 'tab2',
+    loadChildren: './tab2/tab2.module#Tab2PageModule'
+  },
+  {
+    path: '',
+    redirectTo: 'itineraire',
+    pathMatch: 'full'
+  }
+
 
 ];
 @NgModule({
