@@ -92,11 +92,18 @@ export class ItinerairePage implements OnInit {
 
   listeRechercheDepart(val)
   {
-    document.getElementById("rechercheDepart").style.display = "block"
-    this.apiService.getData(false,"listLieu",val).subscribe(res =>{
-      console.log(res)
-      this.recherche = res["features"]
-    })
+    if (val.length > 2)
+    {
+      document.getElementById("rechercheDepart").style.display = "block"
+      this.apiService.getData(false,"listLieu",val).subscribe(res =>{
+        this.recherche = res["features"]
+      })
+    }
+    else
+    {
+      this.recherche = []
+      document.getElementById("rechercheDepart").style.display = "none"
+    }
   }
 
   setRechercheDepart(val)
@@ -104,18 +111,38 @@ export class ItinerairePage implements OnInit {
     this.arretDepart = val
     document.getElementById("rechercheDepart").style.display = "none"
   }
-  listeRechercheArrivee(val)
+  listeRechercheArrivee(val: string)
   {
-    document.getElementById("rechercheArrivee").style.display = "block"
-    this.apiService.getData(false,"listLieu",val).subscribe(res =>{
-      console.log(res)
-      this.recherche = res["features"]
-    })
+    
+    if (val.length > 2)
+    {
+      document.getElementById("rechercheArrivee").style.display = "block"
+      this.apiService.getData(false,"listLieu",val).subscribe(res =>{
+        this.recherche = res["features"]
+      })
+    }
+    else
+    {
+      this.recherche = []
+      document.getElementById("rechercheArrivee").style.display = "none"
+    }
+    
   }
 
   setRechercheArrivee(val)
   {
     this.arretArriver = val
     document.getElementById("rechercheArrivee").style.display = "none"
+  }
+
+  closeEverything()
+  {
+    document.getElementById("rechercheDepart").style.display = "none"
+    document.getElementById("rechercheArrivee").style.display = "none"
+  }
+
+  ionViewDidLeave()
+  {
+    this.closeEverything()
   }
 }

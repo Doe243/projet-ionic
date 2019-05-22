@@ -1,11 +1,11 @@
-<ion-header>
+<ion-header (click)="closeEverything()">
   <ion-toolbar>
     <ion-title>
       Rechercher un itinéraire
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content (click)="closeEverything()">
   <form (ngSubmit)="chercheDepart()" >
     <ion-item-group margin>
       <ion-item>
