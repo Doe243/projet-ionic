@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { element } from '@angular/core/src/render3';
+//import { element } from '@angular/core/src/render3';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-horaire',
@@ -13,7 +14,7 @@ export class HorairePage implements OnInit {
 	//faut faire "serviceDay"+"scheduledDeparture" pour avoir le timestamp
 	
 	idLigne
-  arrets
+  	arrets
 	horaireAller
 	horaireRetour
 	affichageAller: string
@@ -22,14 +23,24 @@ export class HorairePage implements OnInit {
 	constructor(
 		private router:Router, 
 		private route: ActivatedRoute,
-		private apiService: ApiService
+		private apiService: ApiService,
+		public loadingController: LoadingController
 	)
 	{
+		/*let loading = await this.loadingController.create({
+			message: 'Patientez svp...',
+			duration: 2000
+		  });*/
+
+		  //await loading.present();
+
 		this.route.params.subscribe(param =>{
 			this.idLigne = param.id
 			
 			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{
-        console.log(res[0])
+				//await loading.onDidDismiss();
+				
+        		console.log(res[0])
 				this.arrets = res[0]["arrets"]        
 			},err =>{
 				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
@@ -38,22 +49,51 @@ export class HorairePage implements OnInit {
 		})
 	}
 
+	async presentLoading() {
+		const loading = await this.loadingController.create({
+		  message: 'Veuillez patienter svp..',
+		  duration: 3000
+		});
+
+		await loading.present();
+
+	
+		console.log('Loading present!');
+	}
+
+	async dismissLoading() {
+		const loading = await this.loadingController.create({
+		  message: 'Veuillez patienter svp..',
+		  duration: 3000
+		});
+
+		await loading.dismiss();
+	
+		console.log('Loading dismissed!');
+	}
+
 	ngOnInit()
 	{
 
 	}
+
 	ionViewDidEnter()
 	{
 
-  }
+	}
+	  
   
-  showHoraire(id)
-  {
+	showHoraire(id)
+	{
+		this.presentLoading();
 		console.log(id)
 		this.affichageAller = this.arrets[0]["stopName"]
 		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
-   		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>{
-			console.log(res)
+		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>
+		
+		{
+			//this.presentLoading();
+				console.log(res)
 			
 				this.horaireAller = []
 				if(res[1]["times"][0])
@@ -89,6 +129,8 @@ export class HorairePage implements OnInit {
 			document.getElementById("horaires").style.display = "block"
 			document.getElementById("ficheHoraireButton").style.display = "block"
 			document.getElementById("listeArrets").style.display = "none"
+
+			this.dismissLoading();
 		},
 		err =>{
 			console.log(err)
@@ -109,5 +151,10 @@ export class HorairePage implements OnInit {
 		document.getElementById("ficheHoraireButton").style.display = "none"
 		document.getElementById("horaires").style.display = "none"
 		document.getElementById("listeArrets").style.display = "block"
+	}
+
+	ionViewDidLeave()
+	{
+		this.ficheHoraire()
 	}
 }
