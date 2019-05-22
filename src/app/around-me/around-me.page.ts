@@ -104,6 +104,11 @@ export class AroundMePage implements OnInit {
 			}
 		  }]
 		});
+		//non fonctionnel
+		//base pour le faire: https://forum.ionicframework.com/t/pass-data-into-ionic-actionsheet/45864/4
+		
+		//TODO: une fois que ça fonctionne, corriger element.zone en remplaçant le _ par :
+		//lien de base https://www.tutorialrepublic.com/faq/how-to-replace-character-inside-a-string-in-javascript.php
 		element.lines.forEach(el => {
 			var button = {
 				text:el,
