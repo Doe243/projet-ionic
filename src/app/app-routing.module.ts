@@ -13,7 +13,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'itineraire',
     pathMatch: 'full'
-  }
+  },  { path: 'favorites', loadChildren: './favorites/favorites.module#FavoritesPageModule' }
+
 
 
 ];

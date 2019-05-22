@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { element } from '@angular/core/src/render3';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-horaire',
@@ -13,16 +14,19 @@ export class HorairePage implements OnInit {
 	//faut faire "serviceDay"+"scheduledDeparture" pour avoir le timestamp
 	
 	idLigne
-  arrets
+    arrets
 	horaireAller
 	horaireRetour
 	affichageAller: string
 	affichageRetour: string
+	idArrete
+	information
 
 	constructor(
 		private router:Router, 
 		private route: ActivatedRoute,
-		private apiService: ApiService
+		private apiService: ApiService,
+		private storage: Storage
 	)
 	{
 		this.route.params.subscribe(param =>{
@@ -50,6 +54,7 @@ export class HorairePage implements OnInit {
   showHoraire(id)
   {
 		console.log(id)
+		this.idArrete = id
 		this.affichageAller = this.arrets[0]["stopName"]
 		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
    		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>{
@@ -109,5 +114,10 @@ export class HorairePage implements OnInit {
 		document.getElementById("ficheHoraireButton").style.display = "none"
 		document.getElementById("horaires").style.display = "none"
 		document.getElementById("listeArrets").style.display = "block"
+	}
+	AddFavorites(idArret){
+		this.information = {idArret: idArret,idLine: this.idLigne}
+		this.apiService.setLocalData(idArret,this.information)
+		console.log("el marche",this.information)
 	}
 }
