@@ -19,7 +19,7 @@
         <ion-row align-items: center>
           <ion-col *ngFor="let item of trams" size = "2">
               <div class="rond" (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,'color':'#'+item.textColor}">
-                  <ion-avatar style="text-align:center; margin-left: auto; margin-right: auto; padding-top: 10px">
+                  <ion-avatar mode="ios" style="text-align:center; margin-left: auto; margin-right: auto; padding-top: 10px; font-weight: bold">
                       <ion-label>{{item.shortName}}</ion-label>
                   </ion-avatar>
               </div>
@@ -34,7 +34,7 @@
         <ion-row>
           <ion-col *ngFor="let item of CHRONO" size = "2">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}" style="border-radius: 50%; height: 3rem; width: 3rem">
-                  <ion-avatar class="blocktext" style="text-align:center; margin: 0 auto; padding-top: 10px">
+                  <ion-avatar mode="ios" class="blocktext" style="text-align:center; margin: 0 auto; padding-top: 10px; font-weight: bold">
                       <ion-label>{{item.shortName}}</ion-label>
                   </ion-avatar>
               </div>
@@ -49,7 +49,7 @@
         <ion-row>
           <ion-col *ngFor="let item of PROXIMO" size = "2">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}" style="height: 3rem; width: 3rem">
-                  <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
+                  <ion-avatar mode="ios" style="text-align:center; margin: 0 auto; padding-top: 10px; font-weight: bold">
                     {{item.shortName}}
                   </ion-avatar>
               </div>
@@ -64,7 +64,7 @@
         <ion-row>
           <ion-col *ngFor="let item of FLEXO" size = "2">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}" style="height: 3rem; width: 3rem">
-                  <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
+                  <ion-avatar mode="ios" style="text-align:center; margin: 0 auto; padding-top: 10px; font-weight: bold">
                     {{item.shortName}}
                   </ion-avatar>
               </div>
@@ -82,7 +82,7 @@
         <ion-row>
           <ion-col *ngFor="let item of C38" size = "3">
               <div (click)="TakeHours(item.id)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}" style="height: 3rem; width: 3rem">
-                  <ion-avatar style="text-align:center; margin: 0 auto; padding-top: 10px">
+                  <ion-avatar mode="ios" style="text-align:center; margin: 0 auto; padding-top: 10px; font-weight: bold">
                     {{item.shortName}}
                   </ion-avatar>
               </div>
