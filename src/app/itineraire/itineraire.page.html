@@ -36,12 +36,22 @@
       </ion-item>
     </ion-item-group>
     <ion-button expand="block" type="submit">Rechercher</ion-button>
+
   </form>
   
-  <ion-item *ngFor="let item of resultat">
-    <ion-label>
-      <p>{{convertTimeStamp(item.startTime)}} <ion-icon name="arrow-forward"></ion-icon> {{convertTimeStamp(item.endTime)}}, Durée: {{convertToMinutes(item.duration)}}min</p>
-      <p></p>
-    </ion-label>
-  </ion-item>
+
+  <ion-card *ngFor="let item of resultat">
+      <ion-card-header style="background-color: #3399ff; padding: 10px;">
+        <ion-card-subtitle style="font-weight: bold; text-align: center; color: #fff">Resultas</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content style="font-weight: bold; background-color: #e0e0d1; color: #000; margin: 0; padding: 0; margin-bottom: 50px;">
+        départ: {{convertTimeStamp(item.startTime)}} arriver: {{convertTimeStamp(item.endTime)}} durée: {{convertToMinutes(item.duration)}}min
+      </ion-card-content>
+
+      <div *ngIf="">
+
+      </div>
+    </ion-card>
+ 
 </ion-content>
