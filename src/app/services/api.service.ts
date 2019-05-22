@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable, from } from 'rxjs';
 import { tap, map, catchError } from "rxjs/operators";
+import { Storage } from '@ionic/storage';
   
 const API_URL = 'http://data.metromobilite.fr/api'; //API
 
@@ -14,7 +15,8 @@ export class ApiService {
   
   constructor
   (
-    private http: HttpClient 
+    private http: HttpClient,
+    private storage: Storage 
     
     ) {
     
@@ -65,7 +67,14 @@ export class ApiService {
         )
       }else if (requeteType == "rechercheItineraire")
       {
-        return this.http.get(`https://data.metromobilite.fr/api/routers/default/plan?routerId=prod&mode=WALK,TRANSIT&showIntermediateStops=true&minTransferTime=60&transferPenalty=60&numItineraries=2&walkBoardCost=300&bikeBoardCost=600&fromPlace=${objet['lngD']},${objet['latD']}&toPlace=${objet['lngA']},${objet['latA']}&arriveBy=false&time=${objet['time']}&date=${objet['date']}&ui_date=&walkSpeed=1.1112&walkReluctance=5&locale=fr_FR`).pipe(
+        return this.http.get(`${API_URL}/routers/default/plan?routerId=prod&mode=WALK,TRANSIT&showIntermediateStops=true&minTransferTime=60&transferPenalty=60&numItineraries=2&walkBoardCost=300&bikeBoardCost=600&fromPlace=${objet['lngD']},${objet['latD']}&toPlace=${objet['lngA']},${objet['latA']}&arriveBy=false&time=${objet['time']}&date=${objet['date']}&ui_date=&walkSpeed=1.1112&walkReluctance=5&locale=fr_FR`).pipe(
+          map(res =>
+            res
+          )
+        )
+      }else if (requeteType == "listLieu")
+      {
+        return this.http.get(`${API_URL}/find/json?query=${objet}&types=arret,lieux,rues`).pipe(
           map(res =>
             res
           )
@@ -73,6 +82,18 @@ export class ApiService {
       }
       
     }
+     // Save result of API requests
+  public setLocalData(key, data) {
+    //this.storage.set(`${API_STORAGE_KEY}-${key}`, data);
+    this.storage.set(`${key}`, data);
+  }
+ 
+  // Get cached API result
+  public getLocalData(key) {
+    //return this.storage.get(`${API_STORAGE_KEY}-${key}`);
+    return this.storage.get(`${key}`);
+    
+  }
    
 }
 
