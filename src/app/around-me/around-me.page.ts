@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+import { ActionSheetController } from '@ionic/angular';
 
 import { ApiService } from '../services/api.service'
 
@@ -14,7 +15,8 @@ export class AroundMePage implements OnInit {
 	stationMarker: L.Marker[] = []
 	constructor
 	(
-		private apiService : ApiService
+		private apiService : ApiService,
+		public actionSheet: ActionSheetController
 	) 
 	{ 
 
@@ -68,7 +70,7 @@ export class AroundMePage implements OnInit {
 			console.log(res)
 			res.forEach(element => {
 				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon},).addTo(this.map)
-				this.stationMarker[element].bindPopup(element.name)
+				this.stationMarker[element].addEventListener("click", ()=>this.presentActionSheet(element))
 			});
 		})
 	}
@@ -89,4 +91,29 @@ export class AroundMePage implements OnInit {
 			enableHighAccuracy: true
 		});
 	}
+	
+	async presentActionSheet(element) {
+		const actionSheet = await this.actionSheet.create({
+		  header: 'Quel arret',
+		  buttons: [{
+			text: 'Annuler',
+			icon: 'close',
+			role: 'cancel',
+			handler: () => {
+			  console.log('Cancel clicked');
+			}
+		  }]
+		});
+		element.lines.forEach(el => {
+			var button = {
+				text:el,
+				handler: (i) =>{
+					console.log(el)
+					console.log(element)
+				}
+			}
+			actionSheet.buttons.push(JSON.stringify(button))
+		});
+		await actionSheet.present();
+	  }
 }
