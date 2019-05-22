@@ -52,7 +52,7 @@ export class HorairePage implements OnInit {
 		console.log(id)
 		this.affichageAller = this.arrets[0]["stopName"]
 		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
-    this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>{
+   		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>{
 			console.log(res)
 			
 				this.horaireAller = []
@@ -87,12 +87,12 @@ export class HorairePage implements OnInit {
 			
 			
 			document.getElementById("horaires").style.display = "block"
+			document.getElementById("ficheHoraireButton").style.display = "block"
 			document.getElementById("listeArrets").style.display = "none"
 		},
 		err =>{
 			console.log(err)
 			alert("Impossible de récupérer les horaires. vérifiez votre connection internet et réessayez")
-			this.router.navigate(['horaire',{id:this.idLigne}])
 		})
 	}
 	
@@ -103,8 +103,11 @@ export class HorairePage implements OnInit {
 		return minutes + "min"
 	}
 
-	goToLigne()
+	ficheHoraire()
 	{
-		this.router.navigate(['tabs/tab2'])
+		
+		document.getElementById("ficheHoraireButton").style.display = "none"
+		document.getElementById("horaires").style.display = "none"
+		document.getElementById("listeArrets").style.display = "block"
 	}
 }

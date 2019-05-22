@@ -8,11 +8,19 @@ import { ApiService } from '../services/api.service'
   styleUrls: ['itineraire.page.scss']
 })
 export class ItinerairePage implements OnInit {
+	stationMarker: L.Marker[] = []
   map:L.Map
   depart: L.Marker
   arriver: L.Marker
   arretDepart: string
   arretArriver: string
+  time: string
+  date: string
+
+  coordones1LA;
+  coordones1LO;
+  coordones2LA;
+  coordones2LO;
 
   constructor
 	(
@@ -36,16 +44,36 @@ export class ItinerairePage implements OnInit {
   
   }
 
-  underStation()
+  chercheDepart()
   {
       this.apiService.getData(false, "itineraire", this.arretDepart).subscribe(res =>{
-        console.log(res)
-        if(res.length > 0) {
-         //
-        }
+        console.log("tout",res)
+        res.forEach(element => {
+          this.coordones1LA = element.geometry.coordinates[0]
+          this.coordones1LO = element.geometry.coordinates[1]
+          
+        });
+        this.ChercheArriver()
       })
-    
+      
+  }
+  ChercheArriver(){
+    this.apiService.getData(false, "itineraire", this.arretArriver).subscribe(res =>{
+      console.log("tout",res)
+      res.forEach(element => {
+        this.coordones2LA = element.geometry.coordinates[0]
+        this.coordones2LO = element.geometry.coordinates[1]
+        
+      });
+      this.chercheItineraire()
+    })
+  }
 
+  chercheItineraire(){
+    this.apiService.getData(false,"rechercheItineraire",{lngD:this.coordones1LO,latD:this.coordones1LA,
+      lngA:this.coordones2LO,latA:this.coordones2LA,time:this.time,date:this.date}).subscribe(res =>{
+        console.log("il marche",res);
+      })
   }
 
 }

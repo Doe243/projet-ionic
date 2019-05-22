@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form (ngSubmit)="underStation()" >
+  <form (ngSubmit)="chercheDepart()" >
     <ion-item-group margin>
       <ion-item>
         <ion-label position="floating">De :</ion-label>
@@ -15,7 +15,15 @@
     
       <ion-item>
         <ion-label position="floating">A :</ion-label>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)] = "arretArriver" type="text" name="Arriver"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Time :</ion-label>
+        <ion-input [(ngModel)] = "time" type="text" name="Time"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Date :</ion-label>
+        <ion-input [(ngModel)] = "date" type="text" name="Date"></ion-input>
       </ion-item>
     </ion-item-group>
 
