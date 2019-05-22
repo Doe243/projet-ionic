@@ -76,21 +76,22 @@ export class HorairePage implements OnInit {
 	{
 
 	}
+
 	ionViewDidEnter()
 	{
 
 	}
 	  
   
-  showHoraire(id)
-  {
+	showHoraire(id)
+	{
 		this.presentLoading();
 		console.log(id)
 		this.affichageAller = this.arrets[0]["stopName"]
 		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
-		   this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>
-	  	
-		   {
+		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>
+		
+		{
 			//this.presentLoading();
 				console.log(res)
 			
@@ -150,5 +151,10 @@ export class HorairePage implements OnInit {
 		document.getElementById("ficheHoraireButton").style.display = "none"
 		document.getElementById("horaires").style.display = "none"
 		document.getElementById("listeArrets").style.display = "block"
+	}
+
+	ionViewDidLeave()
+	{
+		this.ficheHoraire()
 	}
 }
