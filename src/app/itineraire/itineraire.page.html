@@ -10,24 +10,38 @@
     <ion-item-group margin>
       <ion-item>
         <ion-label position="floating">De :</ion-label>
-        <ion-input [(ngModel)] = "arretDepart" type="text" name="depart"></ion-input>
+        <ion-input [(ngModel)] = "arretDepart" type="text" name="depart" (ngModelChange)="listeRechercheDepart(arretDepart)"></ion-input>  
       </ion-item>
-    
+      <ion-list id="rechercheDepart" style="z-index: 1000; display: none; position: absolute;">
+        <ion-item *ngFor="let lieu of recherche" (click)="setRechercheDepart(lieu.properties.LIBELLE)">
+          <ion-label>{{lieu.properties.COMMUNE}} - {{lieu.properties.LIBELLE}}</ion-label>
+        </ion-item>
+      </ion-list>
       <ion-item>
         <ion-label position="floating">A :</ion-label>
-        <ion-input [(ngModel)] = "arretArriver" type="text" name="Arriver"></ion-input>
+        <ion-input [(ngModel)] = "arretArriver" type="text" name="Arriver" (ngModelChange)="listeRechercheArrivee(arretArriver)"></ion-input>
       </ion-item>
+      <ion-list id="rechercheArrivee" style="z-index: 1000; display: none; position: absolute;">
+        <ion-item *ngFor="let lieu of recherche" (click)="setRechercheArrivee(lieu.properties.LIBELLE)">
+          <ion-label>{{lieu.properties.COMMUNE}} - {{lieu.properties.LIBELLE}}</ion-label>
+        </ion-item>
+      </ion-list>
       <ion-item>
         <ion-label position="floating">Time :</ion-label>
-        <ion-input [(ngModel)] = "time" type="text" name="Time"></ion-input>
+        <ion-input [(ngModel)] = "time" type="time" name="Time"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Date :</ion-label>
-        <ion-input [(ngModel)] = "date" type="text" name="Date"></ion-input>
+        <ion-input [(ngModel)] = "date" type="date" name="Date"></ion-input>
       </ion-item>
     </ion-item-group>
-
     <ion-button expand="block" type="submit">Rechercher</ion-button>
   </form>
-  <div id="mapItineraire" style="width:100%; height:65%"></div>
+  
+  <ion-item *ngFor="let item of resultat">
+    <ion-label>
+      <p>{{convertTimeStamp(item.startTime)}} <ion-icon name="arrow-forward"></ion-icon> {{convertTimeStamp(item.endTime)}}, Durée: {{convertToMinutes(item.duration)}}min</p>
+      <p></p>
+    </ion-label>
+  </ion-item>
 </ion-content>
