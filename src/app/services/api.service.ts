@@ -9,7 +9,7 @@ const API_URL = 'http://data.metromobilite.fr/api'; //API
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' 
 })
 export class ApiService {
   
