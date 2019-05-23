@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ApiService } from '../services/api.service';
-//import { element } from '@angular/core/src/render3';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -10,38 +9,35 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./horaire.page.scss'],
 })
 export class HorairePage implements OnInit {
-//dans la récupération de l'api:
-	//faut faire "serviceDay"+"scheduledDeparture" pour avoir le timestamp
-	
+
 	idLigne
-  	arrets
+    arrets
 	horaireAller
 	horaireRetour
 	affichageAller: string
 	affichageRetour: string
+	idArrete
+	information
 
 	constructor(
 		private router:Router, 
 		private route: ActivatedRoute,
 		private apiService: ApiService,
-		public loadingController: LoadingController
+		public loadingController: LoadingController,
+		
 	)
 	{
-		/*let loading = await this.loadingController.create({
-			message: 'Patientez svp...',
-			duration: 2000
-		  });*/
-
-		  //await loading.present();
-
+		
 		this.route.params.subscribe(param =>{
 			this.idLigne = param.id
 			
-			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{
-				//await loading.onDidDismiss();
-				
+			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{				
         		console.log(res[0])
-				this.arrets = res[0]["arrets"]        
+				this.arrets = res[0]["arrets"]   
+				if (param.arret)
+				{
+					console.log(param.arret)
+				}     
 			},err =>{
 				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
 				console.log(err)
@@ -87,6 +83,7 @@ export class HorairePage implements OnInit {
 	{
 		this.presentLoading();
 		console.log(id)
+		this.idArrete = id
 		this.affichageAller = this.arrets[0]["stopName"]
 		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
 		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>
@@ -152,9 +149,9 @@ export class HorairePage implements OnInit {
 		document.getElementById("horaires").style.display = "none"
 		document.getElementById("listeArrets").style.display = "block"
 	}
-
-	ionViewDidLeave()
-	{
-		this.ficheHoraire()
+	AddFavorites(idArret){
+		this.information = {idArret: idArret,idLine: this.idLigne}
+		this.apiService.setLocalData(idArret,this.information)
+		console.log("el marche",this.information)
 	}
 }

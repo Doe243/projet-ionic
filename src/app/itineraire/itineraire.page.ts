@@ -44,7 +44,6 @@ export class ItinerairePage implements OnInit {
         res.forEach(element => {
           this.coordones1LA = element.geometry.coordinates[0]
           this.coordones1LO = element.geometry.coordinates[1]
-          
         });
         this.ChercheArriver()
       })
