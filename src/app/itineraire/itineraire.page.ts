@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
 import { formatDate } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-itineraire',
@@ -23,61 +21,12 @@ export class ItinerairePage implements OnInit {
   resultat
 
   recherche
-
-  loading
   constructor
 	(
-    private route: ActivatedRoute,
-    private apiService : ApiService,
-    public loadingController: LoadingController,
+		private apiService : ApiService
 	) 
 	{ 
-    this.route.params.subscribe(param =>{
-      if(param.station)
-      {
-        this.arretDepart = param.station
-      }
-    })
-    var temps = new Date
-    var tempsEcrit
-    if (temps.getHours() < 10)
-    {
-      tempsEcrit = "0"+temps.getHours()+":"
-    }
-    else
-    {
-      tempsEcrit = temps.getHours()+":"
-    }
 
-    if(temps.getMinutes() < 10)
-    {
-      tempsEcrit = tempsEcrit+"0"+temps.getMinutes()
-    }
-    else
-    {
-      tempsEcrit = tempsEcrit+temps.getMinutes()
-    }
-    this.time = tempsEcrit
-
-    var dateEcrit
-    if (temps.getMonth() < 10)
-    {
-      dateEcrit = temps.getFullYear()+"-0"+(temps.getMonth()+1)+"-"
-    }
-    else
-    {
-      dateEcrit = temps.getFullYear()+"-"+(temps.getMonth()+1)+"-"
-    }
-
-    if(temps.getDate() < 10)
-    {
-      dateEcrit = dateEcrit+"0"+temps.getDate()
-    }
-    else
-    {
-      dateEcrit = dateEcrit+temps.getDate()
-    }
-    this.date = dateEcrit
 	}
 
   ngOnInit() {  
@@ -87,28 +36,6 @@ export class ItinerairePage implements OnInit {
   {
       
   }
-
-  async presentLoading() {
-		this.loading = await this.loadingController.create({
-		  spinner: null,
-		  duration: 0,
-		  message: 'Veuillez patienter svp...',
-		  translucent: true,
-		  cssClass: 'custom-class custom-loading'
-		});
-
-		console.log('Loading present');
-
-		return await this.loading.present();
-	  }
-
-	async dismissLoading() {
-		
-
-		await this.loading.dismiss();
-	
-		console.log('Loading dismissed!');
-	}
 
   chercheDepart()
   {
@@ -134,16 +61,11 @@ export class ItinerairePage implements OnInit {
     })
   }
 
-  chercheItineraire()
-  {
-    this.presentLoading();
-
+  chercheItineraire(){
     this.apiService.getData(false,"rechercheItineraire",{lngD:this.coordones1LO,latD:this.coordones1LA,
       lngA:this.coordones2LO,latA:this.coordones2LA,time:this.time,date:this.date}).subscribe(res =>{
         console.log("chemin",res);
         this.resultat = res["plan"]["itineraries"]
-
-        this.dismissLoading();
       })
   }
 
@@ -154,12 +76,12 @@ export class ItinerairePage implements OnInit {
     var mToString
     if(m <10)
     {
-      mToString = "0" + m
+      mToString = "0"+m
     }
     else{
       mToString = m
     }
-    return h + ":" + mToString
+    return h+":"+mToString
   }
 
   convertToMinutes(minutes)
