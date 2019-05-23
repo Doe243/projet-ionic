@@ -12,7 +12,7 @@
   </ion-header>
   
   <ion-content >
-    <div id="listeArrets" style="display: block">
+    <div id="listeArretsHoraires" style="display: block">
       <ion-list>
         <ion-item *ngFor="let item of arrets" (click)="showHoraire(item.parentStation.code)">
           <ion-label>
@@ -23,10 +23,10 @@
       </ion-list>
     </div>  
     
-    <div id="horaires" style="display: none">
+    <div id="listHoraires" style="display: none">
       <ion-list>
           <ion-list-header>
-              <ion-label><strong>{{affichageAller}}</strong></ion-label><img  src="../../assets/img/etoile.png" style="width: 50px"/>
+              <ion-label><strong>{{affichageAller}}</strong></ion-label><img (click)="AddFavorites(idArrete)"  src="../../assets/img/etoile.png" style="width: 50px"/>
             </ion-list-header>
           <ion-item *ngFor="let item of horaireAller; let i" color="light">
               <ion-label>
