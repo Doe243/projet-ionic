@@ -46,11 +46,7 @@ export class FavoritesPage implements OnInit {
   }
 
   takeFicheHoraire(){
-    this.favori.forEach(res=>{
-      this.apiService.getData(false,"ficheHoraire",res.line).subscribe(res =>{				
-        console.log(res[0])
-    this.arrets = res[0]["arrets"]
-    })
+    
   }
   
 
