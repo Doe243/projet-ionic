@@ -90,43 +90,41 @@ export class HorairePage implements OnInit {
 		
 		{
 			//this.presentLoading();
-				console.log(res)
-			
-				this.horaireAller = []
-				if(res[1]["times"][0])
-				{
-					this.horaireAller.push(res[1]["times"][0])
-				}
-				if(res[1]["times"][1])
-				{
-					this.horaireAller.push(res[1]["times"][1])
-				}
-				if(res[1]["times"][2])
-				{
-					this.horaireAller.push(res[1]["times"][2])
-				}
+			console.log(res)
+			console.log("1")
+			this.horaireAller = []
+			if(res[1]["times"][0])
+			{
+				this.horaireAller.push(res[1]["times"][0])
+			}
+			if(res[1]["times"][1])
+			{
+				this.horaireAller.push(res[1]["times"][1])
+			}
+			if(res[1]["times"][2])
+			{
+				this.horaireAller.push(res[1]["times"][2])
+			}
+			console.log("2")
+			this.horaireRetour = []
 
-				this.horaireRetour = []
-
-				if(res[0]["times"][0])
-				{
-					this.horaireRetour.push(res[0]["times"][0])
-				}
-				if(res[0]["times"][1])
-				{
-					this.horaireRetour.push(res[0]["times"][1])
-				}
-				if(res[0]["times"][2])
-				{
-					this.horaireRetour.push(res[0]["times"][2])
-				}
-
-			
-			
-			document.getElementById("horaires").style.display = "block"
+			if(res[0]["times"][0])
+			{
+				this.horaireRetour.push(res[0]["times"][0])
+			}
+			if(res[0]["times"][1])
+			{
+				this.horaireRetour.push(res[0]["times"][1])
+			}
+			if(res[0]["times"][2])
+			{
+				this.horaireRetour.push(res[0]["times"][2])
+			}
+			console.log("3")
+			document.getElementById("listHoraires").style.display = "block"
 			document.getElementById("ficheHoraireButton").style.display = "block"
-			document.getElementById("listeArrets").style.display = "none"
-
+			document.getElementById("listeArretsHoraires").style.display = "none"
+			console.log("4")
 			this.dismissLoading();
 		},
 		err =>{
@@ -146,8 +144,8 @@ export class HorairePage implements OnInit {
 	{
 		
 		document.getElementById("ficheHoraireButton").style.display = "none"
-		document.getElementById("horaires").style.display = "none"
-		document.getElementById("listeArrets").style.display = "block"
+		document.getElementById("listHoraires").style.display = "none"
+		document.getElementById("listeArretsHoraires").style.display = "block"
 	}
 	AddFavorites(idArret){
 		this.information = {idArret: idArret,idLine: this.idLigne}
