@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { element } from '@angular/core/src/render3';
-import { Storage } from '@ionic/storage';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-horaire',
@@ -10,9 +9,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./horaire.page.scss'],
 })
 export class HorairePage implements OnInit {
-//dans la récupération de l'api:
-	//faut faire "serviceDay"+"scheduledDeparture" pour avoir le timestamp
-	
+
 	idLigne
     arrets
 	horaireAller
@@ -26,24 +23,21 @@ export class HorairePage implements OnInit {
 		private router:Router, 
 		private route: ActivatedRoute,
 		private apiService: ApiService,
-		private storage: Storage
+		public loadingController: LoadingController,
+		
 	)
 	{
-		/*let loading = await this.loadingController.create({
-			message: 'Patientez svp...',
-			duration: 2000
-		  });*/
-
-		  //await loading.present();
-
+		
 		this.route.params.subscribe(param =>{
 			this.idLigne = param.id
 			
-			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{
-				//await loading.onDidDismiss();
-				
+			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{				
         		console.log(res[0])
-				this.arrets = res[0]["arrets"]        
+				this.arrets = res[0]["arrets"]   
+				if (param.arret)
+				{
+					console.log(param.arret)
+				}     
 			},err =>{
 				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
 				console.log(err)
