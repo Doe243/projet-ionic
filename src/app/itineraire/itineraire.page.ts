@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
 import { formatDate } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-itineraire',
@@ -23,10 +24,56 @@ export class ItinerairePage implements OnInit {
   recherche
   constructor
 	(
-		private apiService : ApiService
+    private route: ActivatedRoute,
+    private apiService : ApiService
 	) 
 	{ 
+    this.route.params.subscribe(param =>{
+      if(param.station)
+      {
+        this.arretDepart = param.station
+      }
+    })
+    var temps = new Date
+    var tempsEcrit
+    if (temps.getHours() < 10)
+    {
+      tempsEcrit = "0"+temps.getHours()+":"
+    }
+    else
+    {
+      tempsEcrit = temps.getHours()+":"
+    }
 
+    if(temps.getMinutes() < 10)
+    {
+      tempsEcrit = tempsEcrit+"0"+temps.getMinutes()
+    }
+    else
+    {
+      tempsEcrit = tempsEcrit+temps.getMinutes()
+    }
+    this.time = tempsEcrit
+
+    var dateEcrit
+    if (temps.getMonth() < 10)
+    {
+      dateEcrit = temps.getFullYear()+"-0"+(temps.getMonth()+1)+"-"
+    }
+    else
+    {
+      dateEcrit = temps.getFullYear()+"-"+(temps.getMonth()+1)+"-"
+    }
+
+    if(temps.getDate() < 10)
+    {
+      dateEcrit = dateEcrit+"0"+temps.getDate()
+    }
+    else
+    {
+      dateEcrit = dateEcrit+temps.getDate()
+    }
+    this.date = dateEcrit
 	}
 
   ngOnInit() {  
