@@ -18,6 +18,7 @@ export class HorairePage implements OnInit {
 	affichageRetour: string
 	idArrete
 	information
+	loading
 
 	constructor(
 		private router:Router, 
@@ -46,24 +47,23 @@ export class HorairePage implements OnInit {
 	}
 
 	async presentLoading() {
-		const loading = await this.loadingController.create({
-		  message: 'Veuillez patienter svp..',
-		  duration: 3000
+		this.loading = await this.loadingController.create({
+		  spinner: null,
+		  duration: 0,
+		  message: 'Veuillez patienter svp...',
+		  translucent: true,
+		  cssClass: 'custom-class custom-loading'
 		});
 
-		await loading.present();
+		console.log('Loading present');
 
-	
-		console.log('Loading present!');
-	}
+		return await this.loading.present();
+	  }
 
 	async dismissLoading() {
-		const loading = await this.loadingController.create({
-		  message: 'Veuillez patienter svp..',
-		  duration: 3000
-		});
+		
 
-		await loading.dismiss();
+		await this.loading.dismiss();
 	
 		console.log('Loading dismissed!');
 	}
@@ -82,6 +82,8 @@ export class HorairePage implements OnInit {
 	showHoraire(id)
 	{
 		this.presentLoading();
+
+	
 		console.log(id)
 		this.idArrete = id
 		this.affichageAller = this.arrets[0]["stopName"]
@@ -89,7 +91,8 @@ export class HorairePage implements OnInit {
 		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>
 		
 		{
-			//this.presentLoading();
+				//this.presentLoading();
+
 				console.log(res)
 			
 				this.horaireAller = []
