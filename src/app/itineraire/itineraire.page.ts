@@ -123,12 +123,12 @@ export class ItinerairePage implements OnInit {
     var mToString
     if(m <10)
     {
-      mToString = "0"+m
+      mToString = "0" + m
     }
     else{
       mToString = m
     }
-    return h+":"+mToString
+    return h + ":" + mToString
   }
 
   convertToMinutes(minutes)
