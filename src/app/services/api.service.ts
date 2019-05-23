@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable, from } from 'rxjs';
 import { tap, map, catchError } from "rxjs/operators";
+import { Storage } from '@ionic/storage';
   
 const API_URL = 'http://data.metromobilite.fr/api'; //API
 
@@ -14,7 +15,8 @@ export class ApiService {
   
   constructor
   (
-    private http: HttpClient 
+    private http: HttpClient,
+    private storage: Storage 
     
     ) {
     
@@ -80,6 +82,18 @@ export class ApiService {
       }
       
     }
+     // Save result of API requests
+  public setLocalData(key, data) {
+    //this.storage.set(`${API_STORAGE_KEY}-${key}`, data);
+    this.storage.set(`${key}`, data);
+  }
+ 
+  // Get cached API result
+  public getLocalData(key) {
+    //return this.storage.get(`${API_STORAGE_KEY}-${key}`);
+    return this.storage.get(`${key}`);
+    
+  }
    
 }
 
