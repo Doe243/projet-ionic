@@ -19,10 +19,13 @@ export class HorairePage implements OnInit {
 	affichageRetour: string
 	idArrete
 	information
+<<<<<<< HEAD
 	nameArr:String
 =======
 	loading
 >>>>>>> master
+=======
+>>>>>>> parent of ad46245... avance 3 favorites
 
 	constructor(
 		private router:Router, 
@@ -94,7 +97,6 @@ export class HorairePage implements OnInit {
 		{
 			//this.presentLoading();
 				console.log(res)
-				this.nameArr = res[0].pattern.desc
 			
 				this.horaireAller = []
 				if(res[1]["times"][0])
@@ -152,9 +154,9 @@ export class HorairePage implements OnInit {
 		document.getElementById("listeArrets").style.display = "block"
 	}
 	AddFavorites(idArret){
-		this.information = {idArret: idArret,idLine: this.idLigne,nameArret:this.nameArr}
+		this.information = {idArret: idArret,idLine: this.idLigne}
 		this.apiService.setLocalData(idArret,this.information)
-		console.log("il marche",this.information)
+		console.log("el marche22",this.information)
 	}
 =======
 	
