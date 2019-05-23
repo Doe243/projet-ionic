@@ -5,29 +5,12 @@
 </ion-header>
 
 <ion-content>
-    <div id="horaires" style="display: block">
+   
         <ion-list>
-            <ion-list-header>
-                <ion-label><strong>{{affichageAller}}</strong></ion-label><img (click)="AddFavorites(idArrete)" src="../../assets/img/etoile.png" style="width: 50px"/>
-              </ion-list-header>
-            <ion-item *ngFor="let item of horaireAller; let i" color="light">
+            <ion-item *ngFor="let item of favori" color="light">
                 <ion-label>
-                  <h3>{{item.stopName}}</h3>
-                  <p>{{lectureHoraire(item.scheduledArrival,item.serviceDay)}}</p>
+                  <h3>{{item.line}}</h3>
                 </ion-label>
               </ion-item>
         </ion-list>
-        <ion-list>
-            <ion-list-header>
-              <ion-label><strong>{{affichageRetour}}</strong></ion-label>
-            </ion-list-header>
-            <ion-item *ngFor="let item of horaireRetour" color="light">
-                <ion-label>
-                  <h3>{{item.stopName}}</h3>
-                  <p>{{lectureHoraire(item.scheduledArrival,item.serviceDay)}}</p>
-                </ion-label>
-              </ion-item>
-        </ion-list>
-      </div>
-
 </ion-content>

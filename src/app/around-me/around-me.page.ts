@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { ActionSheetController } from '@ionic/angular';
+import {Router} from '@angular/router';
 
 import { ApiService } from '../services/api.service'
 
@@ -13,10 +13,12 @@ export class AroundMePage implements OnInit {
 	map:L.Map
 	userPos: L.Marker
 	stationMarker: L.Marker[] = []
+	
+	
 	constructor
 	(
+		private router:Router, 
 		private apiService : ApiService,
-		public actionSheet: ActionSheetController
 	) 
 	{ 
 
@@ -70,7 +72,22 @@ export class AroundMePage implements OnInit {
 			console.log(res)
 			res.forEach(element => {
 				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon},).addTo(this.map)
-				this.stationMarker[element].addEventListener("click", ()=>this.presentActionSheet(element))
+				this.stationMarker[element].addEventListener("click", ()=>{
+					var MonString : string 
+					MonString = element.name
+					
+					if(MonString.search(",") > 0)
+					{
+						var deletePart = MonString.split(",")[0]
+						MonString = MonString.substring(deletePart.length+2)
+					}
+					else if(MonString.search("-") > 0)
+					{
+						var deletePart = MonString.split("-")[0]
+						MonString = MonString.substring(deletePart.length+2 )
+					}
+					this.router.navigate(["itineraire",{station:MonString}])
+				})
 			});
 		})
 	}
@@ -92,33 +109,4 @@ export class AroundMePage implements OnInit {
 		});
 	}
 	
-	async presentActionSheet(element) {
-		const actionSheet = await this.actionSheet.create({
-		  header: 'Quel arret',
-		  buttons: [{
-			text: 'Annuler',
-			icon: 'close',
-			role: 'cancel',
-			handler: () => {
-			  console.log('Cancel clicked');
-			}
-		  }]
-		});
-		//non fonctionnel
-		//base pour le faire: https://forum.ionicframework.com/t/pass-data-into-ionic-actionsheet/45864/4
-		
-		//TODO: une fois que ça fonctionne, corriger element.zone en remplaçant le _ par :
-		//lien de base https://www.tutorialrepublic.com/faq/how-to-replace-character-inside-a-string-in-javascript.php
-		element.lines.forEach(el => {
-			var button = {
-				text:el,
-				handler: (i) =>{
-					console.log(el)
-					console.log(element)
-				}
-			}
-			actionSheet.buttons.push(JSON.stringify(button))
-		});
-		await actionSheet.present();
-	  }
 }
