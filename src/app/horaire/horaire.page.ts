@@ -154,6 +154,10 @@ export class HorairePage implements OnInit {
 	AddFavorites(idArret){
 		this.information = {idArret: idArret,idLine: this.idLigne,nameArret:this.nameArr}
 		this.apiService.setLocalData(idArret,this.information)
+<<<<<<< HEAD
 		console.log("il marche",this.information)
+=======
+		console.log("el marche",this.information)
+>>>>>>> parent of f0f94f0... avance2 favorites
 	}
 }

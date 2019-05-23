@@ -11,14 +11,20 @@ import { RSA_X931_PADDING } from 'constants';
   styleUrls: ['./favorites.page.scss'],
 })
 export class FavoritesPage implements OnInit {
+<<<<<<< HEAD
   public favori: Array<{line:String,arret:String,nameArret:String}>=[]
   public favorites: Array<{idArret:String,idLine:String,nameLine:String,color:String,NameArret:String}>=[]
+=======
+  public favori: Array<{line:String,arret:String}>=[]
+  public favori2: Array<{line:String,arret:String}>=[]
+>>>>>>> parent of f0f94f0... avance2 favorites
   arrets
   horaireAller
 	horaireRetour
   affichageAller: string
   affichageRetour: string
   cantSto  = 0
+<<<<<<< HEAD
   cant = 0
   lineReplace:String
   lineSave:String
@@ -40,6 +46,8 @@ export class FavoritesPage implements OnInit {
   x2:String
   x3:string
 
+=======
+>>>>>>> parent of f0f94f0... avance2 favorites
 
   constructor(		private apiService: ApiService,
 		private storage: Storage) { 
@@ -52,19 +60,33 @@ export class FavoritesPage implements OnInit {
   }
 
   public takeStorage(){
+<<<<<<< HEAD
     this.storage.clear()
     this.storage.length().then(result =>{
       this.storage.forEach(res =>{
         this.favori.push({line:res.idLine,arret:res.idArret,nameArret:res.nameArret})
+=======
+    
+    this.storage.length().then(result =>{
+      this.storage.forEach(res =>{
+        console.log("1",res.idLine, res.idArret)
+        this.favori.push({line:res.idLine,arret:res.idArret})
+>>>>>>> parent of f0f94f0... avance2 favorites
         this.cantSto++
+        console.log("valeurs",this.cantSto,result)
+        //document.getElementById("horaires").style.display = "block"
         if(this.cantSto==result){
+          console.log("if")
           this.takeFicheHoraire()
         }
       })
       });
+    
+    return this.favori
   }
 
   takeFicheHoraire(){
+<<<<<<< HEAD
     this.nameArretString = ""
     this.nameLineString = ""
     this.colorString = ""
@@ -102,9 +124,10 @@ export class FavoritesPage implements OnInit {
         color:this.linesSave[i].color
       })*/
     }
+=======
+    
+>>>>>>> parent of f0f94f0... avance2 favorites
   }
-
-
   
 
   
