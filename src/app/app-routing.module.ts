@@ -13,7 +13,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'itineraire',
     pathMatch: 'full'
-  },  { path: 'favorites', loadChildren: './favorites/favorites.module#FavoritesPageModule' }
+  },  { path: 'favorites', loadChildren: './favorites/favorites.module#FavoritesPageModule' },
+  { path: 'horaire2', loadChildren: './horaire2/horaire2.module#Horaire2PageModule' }
 
 
 

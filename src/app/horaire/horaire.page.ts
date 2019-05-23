@@ -12,6 +12,7 @@ export class HorairePage implements OnInit {
 
 	idLigne
     arrets
+<<<<<<< HEAD
 	horaireAller
 	horaireRetour
 	affichageAller: string
@@ -19,6 +20,9 @@ export class HorairePage implements OnInit {
 	idArrete
 	information
 	nameArr:String
+=======
+	loading
+>>>>>>> master
 
 	constructor(
 		private router:Router, 
@@ -31,40 +35,37 @@ export class HorairePage implements OnInit {
 		
 		this.route.params.subscribe(param =>{
 			this.idLigne = param.id
-			
+			this.presentLoading()
 			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{				
         		console.log(res[0])
-				this.arrets = res[0]["arrets"]   
-				if (param.arret)
-				{
-					console.log(param.arret)
-				}     
+				this.arrets = res[0]["arrets"]
+				this.dismissLoading()      
 			},err =>{
 				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
 				console.log(err)
+				this.dismissLoading()
 			})
 		})
 	}
 
 	async presentLoading() {
-		const loading = await this.loadingController.create({
-		  message: 'Veuillez patienter svp..',
-		  duration: 3000
+		this.loading = await this.loadingController.create({
+		  spinner: null,
+		  duration: 0,
+		  message: 'Veuillez patienter svp...',
+		  translucent: true,
+		  cssClass: 'custom-class custom-loading'
 		});
 
-		await loading.present();
+		console.log('Loading present');
 
-	
-		console.log('Loading present!');
-	}
+		return await this.loading.present();
+	  }
 
 	async dismissLoading() {
-		const loading = await this.loadingController.create({
-		  message: 'Veuillez patienter svp..',
-		  duration: 3000
-		});
+		
 
-		await loading.dismiss();
+		await this.loading.dismiss();
 	
 		console.log('Loading dismissed!');
 	}
@@ -82,6 +83,7 @@ export class HorairePage implements OnInit {
   
 	showHoraire(id)
 	{
+<<<<<<< HEAD
 		this.presentLoading();
 		console.log(id)
 		this.idArrete = id
@@ -135,15 +137,13 @@ export class HorairePage implements OnInit {
 			console.log(err)
 			alert("Impossible de récupérer les horaires. vérifiez votre connection internet et réessayez")
 		})
+=======
+		this.router.navigate(["/horaire2",{id:this.idLigne,station:id}])
+>>>>>>> master
 	}
 	
-	lectureHoraire(depart, serviceDay)
-	{
-		var secondes = depart + serviceDay - Math.round(Date.now()/1000)
-		var minutes = Math.round(secondes/60)
-		return minutes + "min"
-	}
 
+<<<<<<< HEAD
 	ficheHoraire()
 	{
 		
@@ -156,4 +156,7 @@ export class HorairePage implements OnInit {
 		this.apiService.setLocalData(idArret,this.information)
 		console.log("il marche",this.information)
 	}
+=======
+	
+>>>>>>> master
 }
