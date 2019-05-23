@@ -80,6 +80,14 @@ export class ApiService {
           )
         )
       }
+      else if (requeteType == "lineInfo")
+      {
+        return this.http.get(`${API_URL}/lines/json?types=ligne&codes=${objet}`).pipe(
+          map(res =>
+            res
+          )
+        )
+      }
       
     }
      // Save result of API requests
