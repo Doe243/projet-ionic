@@ -91,24 +91,25 @@ export class HorairePage implements OnInit {
 		this.apiService.getData(false,"horaireArret",{arret:id,ligne:this.idLigne}).subscribe(res=>
 		
 		{
-				//this.presentLoading();
+			//this.presentLoading();
 
-				console.log(res)
-			
-				this.horaireAller = []
-				if(res[1]["times"][0])
-				{
-					this.horaireAller.push(res[1]["times"][0])
-				}
-				if(res[1]["times"][1])
-				{
-					this.horaireAller.push(res[1]["times"][1])
-				}
-				if(res[1]["times"][2])
-				{
-					this.horaireAller.push(res[1]["times"][2])
-				}
+			console.log(res)
+		
+			this.horaireAller = []
+			if(res[1]["times"][0])
+			{
+				this.horaireAller.push(res[1]["times"][0])
+			}
+			if(res[1]["times"][1])
+			{
+				this.horaireAller.push(res[1]["times"][1])
+			}
+			if(res[1]["times"][2])
+			{
+				this.horaireAller.push(res[1]["times"][2])
+			}
 
+			this.horaireRetour = []
 			if(res[0]["times"][0])
 			{
 				this.horaireRetour.push(res[0]["times"][0])
@@ -121,11 +122,11 @@ export class HorairePage implements OnInit {
 			{
 				this.horaireRetour.push(res[0]["times"][2])
 			}
-			console.log("3")
+
 			document.getElementById("listHoraires").style.display = "block"
 			document.getElementById("ficheHoraireButton").style.display = "block"
 			document.getElementById("listeArretsHoraires").style.display = "none"
-			console.log("4")
+
 			this.dismissLoading();
 		},
 		err =>{
