@@ -11,57 +11,45 @@ import { ImplicitReceiver } from '@angular/compiler';
 })
 export class FavoritesPage implements OnInit {
   public favori: Array<{line:String,arret:String}>=[]
+  public favori2: Array<{line:String,arret:String}>=[]
   arrets
   horaireAller
 	horaireRetour
   affichageAller: string
-	affichageRetour: string
+  affichageRetour: string
+  cantSto  = 0
 
   constructor(		private apiService: ApiService,
 		private storage: Storage) { }
 
   ngOnInit() {
-    this.affichageFavorites()
+    this.takeStorage()
   }
 
-  affichageFavorites(){
-    this.affichageAller = this.arrets[0]["stopName"]
-		this.affichageRetour = this.arrets[this.arrets.length-1]["stopName"]
-    this.storage.forEach(res =>{
-      console.log("1",res.idLine, res.idArret)
-      this.favori.push({line:res.idLine,arret:res.idArret})
-      this.horaireAller = []
-      if(res[1]["times"][0])
-				{
-					this.horaireAller.push(res[1]["times"][0])
+  public takeStorage(){
+    
+    this.storage.length().then(result =>{
+      this.storage.forEach(res =>{
+        console.log("1",res.idLine, res.idArret)
+        this.favori.push({line:res.idLine,arret:res.idArret})
+        this.cantSto++
+        console.log("valeurs",this.cantSto,result)
+        //document.getElementById("horaires").style.display = "block"
+        if(this.cantSto==result){
+          console.log("if")
+          this.takeFicheHoraire()
         }
-        if(res[1]["times"][1])
-				{
-					this.horaireAller.push(res[1]["times"][1])
-				}
-				if(res[1]["times"][2])
-				{
-					this.horaireAller.push(res[1]["times"][2])
-        }
-        
-        
-        this.horaireRetour = []
-        
-        if(res[0]["times"][0])
-				{
-					this.horaireRetour.push(res[0]["times"][0])
-				}
-				if(res[0]["times"][1])
-				{
-					this.horaireRetour.push(res[0]["times"][1])
-				}
-				if(res[0]["times"][2])
-				{
-					this.horaireRetour.push(res[0]["times"][2])
-        }
-        
-      //document.getElementById("horaires").style.display = "block"
+      })
+      });
+    
+    return this.favori
+  }
 
+  takeFicheHoraire(){
+    this.favori.forEach(res=>{
+      this.apiService.getData(false,"ficheHoraire",res.line).subscribe(res =>{				
+        console.log(res[0])
+    this.arrets = res[0]["arrets"]
     })
   }
   
