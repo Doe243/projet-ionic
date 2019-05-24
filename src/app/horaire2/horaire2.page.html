@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button (click)="ficheHoraire()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    <ion-title>Arret</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+  <ion-list-header>
+      <ion-label><strong>{{affichageAller}}</strong></ion-label>
+      <img (click)="AddFavorites(arret)"  src="../../assets/img/etoile.png" [ngStyle]="{'width': '50px','display':noFav}"/>
+      <img (click)="AddFavorites(arret)"  src="../../assets/img/etoile_complete.png" [ngStyle]="{'width': '50px','display':fav}"/>
+    </ion-list-header>
+  <ion-item *ngFor="let item of horaireRetour; let i" color="light">
+      <ion-label>
+        <h3>{{item.stopName}}</h3>
+        <p>{{lectureHoraire(item.scheduledArrival,item.serviceDay)}}</p>
+      </ion-label>
+    </ion-item>
+</ion-list>
+<ion-list>
+  <ion-list-header>
+    <ion-label><strong>{{affichageRetour}}</strong></ion-label>
+  </ion-list-header>
+  <ion-item *ngFor="let item of horaireAller" color="light">
+      <ion-label>
+        <h3>{{item.stopName}}</h3>
+        <p>{{lectureHoraire(item.scheduledArrival,item.serviceDay)}}</p>
+      </ion-label>
+    </ion-item>
+</ion-list>
+</ion-content>

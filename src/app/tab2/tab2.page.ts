@@ -48,9 +48,9 @@ lines: Observable<any>;
       this.dispTrans = "block";
     }
   }
-  TakeHours(id){
-    console.log("il marche");
-    this.router.navigate(['horaire',{id:id}])
+  TakeHours(id,nameLin,color){
+    console.log("il marche",id,nameLin,color);
+    this.router.navigate(['horaire',{id:id,nameLine:nameLin,color:color}])
   }
   reseaux(){
     this.apiService.getData(false,"lines").subscribe(line=>{
@@ -95,25 +95,5 @@ lines: Observable<any>;
       })//end items.foreach
     })
   }
-  /*reseauTransisere(){
-
-    this.apiService.getData(false,"lines").subscribe(line=>{
-      line.forEach(element => {
-        this.items.push({
-          id:element.id,
-          gtfsId:element.gtfsId,
-          shortName:element.shortName,
-          longName:element.longName,
-          color:element.color, 
-          textColor:element.textColor, 
-          mode:element.mode, 
-          type:element.type,
-          res:element.res
-        });//end items.push
-        
-      });//end line.foreach
-
-    })
-  }*/
 
 }
