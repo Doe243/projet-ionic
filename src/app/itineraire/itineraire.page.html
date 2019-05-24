@@ -1,5 +1,5 @@
 <ion-header (click)="closeEverything()">
-  <ion-toolbar>
+  <ion-toolbar color="primary" text-center>
     <ion-title>
       Rechercher un itinéraire
     </ion-title>
@@ -39,20 +39,25 @@
   </form>
   
   <ion-card *ngFor="let item of resultat">
-    <ion-card-header style="background-color: #3399ff; padding: 10px;">
+    <ion-card-header style="padding: 10px;" color="primary">
       <ion-card-subtitle style="font-weight: bold; text-align: center; color: #fff">Resultas</ion-card-subtitle>
     </ion-card-header>
   
-    <ion-card-content style="font-weight: bold; background-color: #e0e0d1; color: #000; margin: 0; padding: 0; margin-bottom: 50px;">
+    <ion-card-content style="font-weight: bold; background-color: #e0e0d1; color: #000; margin: 0; padding: 0; margin-bottom: 0;">
       départ: {{convertTimeStamp(item.startTime)}} arriver: {{convertTimeStamp(item.endTime)}} durée: {{convertToMinutes(item.duration)}}min
     </ion-card-content>
-
-    <div *ngFor="let leg of item.legs">
-        
-      <div *ngIf="modeWalk(leg.mode)">
-        WALK
-      </div>
-
-    </div>
-  </ion-card>
+          <ion-grid>
+              <ion-row>
+                
+                    <div *ngFor="let leg of item.legs">
+                        <ion-col *ngIf="modeWalk(leg.mode)">
+                          <ion-icon name="walk" style="color: #000; font-weight: bold"></ion-icon>
+                        </ion-col>
+                        <ion-col *ngIf="modeBus(leg.mode)">
+                          <ion-icon name="bus" style="color: #000; font-weight: bold"></ion-icon>
+                        </ion-col>
+                    </div>
+              </ion-row>
+            </ion-grid>
+     </ion-card>
 </ion-content>
