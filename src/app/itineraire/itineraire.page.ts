@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
-import { formatDate } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-itineraire',
@@ -23,7 +23,8 @@ export class ItinerairePage implements OnInit {
   recherche
   constructor
 	(
-		private apiService : ApiService
+    private apiService : ApiService,
+    private route: ActivatedRoute
 	) 
 	{ 
     this.route.params.subscribe(param =>{
