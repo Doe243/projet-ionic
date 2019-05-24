@@ -70,7 +70,22 @@ export class AroundMePage implements OnInit {
 			console.log(res)
 			res.forEach(element => {
 				this.stationMarker[element] = L.marker({lat:element.lat,lng:element.lon},).addTo(this.map)
-				this.stationMarker[element].addEventListener("click", ()=>this.presentActionSheet(element))
+				this.stationMarker[element].addEventListener("click", ()=>{
+					var MonString : string 
+					MonString = element.name
+					
+					if(MonString.search(",") > 0)
+					{
+						var deletePart = MonString.split(",")[0]
+						MonString = MonString.substring(deletePart.length+2)
+					}
+					else if(MonString.search("-") > 0)
+					{
+						var deletePart = MonString.split("-")[0]
+						MonString = MonString.substring(deletePart.length+2 )
+					}
+					this.router.navigate(["itineraire",{station:MonString}] )
+				})
 			});
 		})
 	}
