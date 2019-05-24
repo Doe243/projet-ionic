@@ -13,10 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FavoritesPage implements OnInit {
   public favori: Array<{idArret:String,idLine:String,nameLine:String,color:String,NameArret:String}>=[]
   public favorites: Array<{idArret:String,idLine:String,nameLine:String,color:String,NameArret:String}>=[]
-=======
-  public favori: Array<{line:String,arret:String}>=[]
   public favori2: Array<{line:String,arret:String}>=[]
->>>>>>> parent of f0f94f0... avance2 favorites
   arrets
   horaireAller
 	horaireRetour
@@ -32,6 +29,7 @@ export class FavoritesPage implements OnInit {
 
   ngOnInit() {
     this.storage.forEach(res =>{
+      console.log(res)
       this.favori.push({idLine:res.idLine,idArret:res.idArret,nameLine:res.nameLine,color:res.colorLine,NameArret:res.nameArret})
     })
   }
