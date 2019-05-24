@@ -116,6 +116,15 @@ export class ItinerairePage implements OnInit {
       })
   }
 
+  modeWalk(val)
+  {
+    if (val == 'WALK')
+    {
+      return true
+    }
+    else return false
+  }
+
   convertTimeStamp(timestamp)
   {
     var h = new Date(timestamp).getHours()

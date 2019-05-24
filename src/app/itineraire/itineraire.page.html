@@ -47,7 +47,11 @@
       départ: {{convertTimeStamp(item.startTime)}} arriver: {{convertTimeStamp(item.endTime)}} durée: {{convertToMinutes(item.duration)}}min
     </ion-card-content>
 
-    <div *ngIf="">
+    <div *ngFor="let leg of item.legs">
+        
+      <div *ngIf="modeWalk(leg.mode)">
+        WALK
+      </div>
 
     </div>
   </ion-card>
