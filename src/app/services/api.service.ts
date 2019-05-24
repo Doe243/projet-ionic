@@ -9,7 +9,7 @@ const API_URL = 'http://data.metromobilite.fr/api'; //API
 
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root'
 })
 export class ApiService {
   
@@ -75,14 +75,6 @@ export class ApiService {
       }else if (requeteType == "listLieu")
       {
         return this.http.get(`${API_URL}/find/json?query=${objet}&types=arret,lieux,rues`).pipe(
-          map(res =>
-            res
-          )
-        )
-      }
-      else if (requeteType == "lineInfo")
-      {
-        return this.http.get(`${API_URL}/lines/json?types=ligne&codes=${objet}`).pipe(
           map(res =>
             res
           )
