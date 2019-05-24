@@ -26,6 +26,22 @@ export class ItinerairePage implements OnInit {
 		private apiService : ApiService
 	) 
 	{ 
+    this.route.params.subscribe(param =>{
+      if(param.station )
+      {
+        this.arretDepart = param.station
+      }
+    })
+    var temps = new Date
+    var tempsEcrit
+    if (temps.getHours() < 10)
+    {
+      tempsEcrit = "0"+temps.getHours()+":"
+    }
+    else
+    {
+      tempsEcrit = temps.getHours()+":"
+    }
 
 	}
 
