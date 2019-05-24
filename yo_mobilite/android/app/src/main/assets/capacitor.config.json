@@ -1,0 +1,7 @@
+{
+  "appId": "com.example.app",
+  "appName": "Yo! Mobilité",
+  "bundledWebRuntime": true,
+  "npmClient": "npm",
+  "webDir": "www"
+}
