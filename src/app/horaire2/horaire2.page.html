@@ -5,16 +5,18 @@
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
       </ion-buttons>
-    <ion-title>Arret</ion-title>
+    <ion-title>Arret </ion-title> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
   <ion-list-header>
-      <ion-label><strong>{{affichageAller}}</strong></ion-label><img (click)="AddFavorites(idArrete)"  src="../../assets/img/etoile.png" style="width: 50px"/>
+      <ion-label><strong>{{affichageAller}}</strong></ion-label>
+      <img (click)="AddFavorites(arret)"  src="../../assets/img/etoile.png" [ngStyle]="{'width': '50px','display':noFav}"/>
+      <img (click)="RemoveFavorites(arret)"  src="../../assets/img/etoile_complete.png" [ngStyle]="{'width': '50px','display':fav}"/>
     </ion-list-header>
-  <ion-item *ngFor="let item of horaireAller; let i" color="light">
+  <ion-item *ngFor="let item of horaireRetour; let i" color="light">
       <ion-label>
         <h3>{{item.stopName}}</h3>
         <p>{{lectureHoraire(item.scheduledArrival,item.serviceDay)}}</p>
@@ -25,7 +27,7 @@
   <ion-list-header>
     <ion-label><strong>{{affichageRetour}}</strong></ion-label>
   </ion-list-header>
-  <ion-item *ngFor="let item of horaireRetour" color="light">
+  <ion-item *ngFor="let item of horaireAller" color="light">
       <ion-label>
         <h3>{{item.stopName}}</h3>
         <p>{{lectureHoraire(item.scheduledArrival,item.serviceDay)}}</p>

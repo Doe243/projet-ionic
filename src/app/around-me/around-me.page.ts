@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import {Router} from '@angular/router';
 
 import { ApiService } from '../services/api.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-around-me',
@@ -13,12 +13,10 @@ export class AroundMePage implements OnInit {
 	map:L.Map
 	userPos: L.Marker
 	stationMarker: L.Marker[] = []
-	
-	
 	constructor
 	(
-		private router:Router, 
 		private apiService : ApiService,
+		private router:Router,
 	) 
 	{ 
 
@@ -86,7 +84,7 @@ export class AroundMePage implements OnInit {
 						var deletePart = MonString.split("-")[0]
 						MonString = MonString.substring(deletePart.length+2 )
 					}
-					this.router.navigate(["itineraire",{station:MonString}])
+					this.router.navigate(["itineraire",{station:MonString}] )
 				})
 			});
 		})
@@ -108,5 +106,4 @@ export class AroundMePage implements OnInit {
 			enableHighAccuracy: true
 		});
 	}
-	
 }

@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { Horaire2Page } from './horaire2.page';
 
-const routes: Routes = [
+const routes: Routes = [ 
   {
     path: '',
     component: Horaire2Page

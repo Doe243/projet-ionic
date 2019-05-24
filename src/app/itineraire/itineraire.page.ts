@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
 import { formatDate } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-itineraire',
@@ -23,17 +22,14 @@ export class ItinerairePage implements OnInit {
   resultat
 
   recherche
-
-  loading
   constructor
 	(
     private route: ActivatedRoute,
-    private apiService : ApiService,
-    public loadingController: LoadingController,
+    private apiService : ApiService
 	) 
 	{ 
     this.route.params.subscribe(param =>{
-      if(param.station)
+      if(param.station )
       {
         this.arretDepart = param.station
       }
@@ -88,28 +84,6 @@ export class ItinerairePage implements OnInit {
       
   }
 
-  async presentLoading() {
-		this.loading = await this.loadingController.create({
-		  spinner: null,
-		  duration: 0,
-		  message: 'Veuillez patienter svp...',
-		  translucent: true,
-		  cssClass: 'custom-class custom-loading'
-		});
-
-		console.log('Loading present');
-
-		return await this.loading.present();
-	  }
-
-	async dismissLoading() {
-		
-
-		await this.loading.dismiss();
-	
-		console.log('Loading dismissed!');
-	}
-
   chercheDepart()
   {
       this.apiService.getData(false, "itineraire", this.arretDepart).subscribe(res =>{
@@ -134,16 +108,11 @@ export class ItinerairePage implements OnInit {
     })
   }
 
-  chercheItineraire()
-  {
-    this.presentLoading();
-
+  chercheItineraire(){
     this.apiService.getData(false,"rechercheItineraire",{lngD:this.coordones1LO,latD:this.coordones1LA,
       lngA:this.coordones2LO,latA:this.coordones2LA,time:this.time,date:this.date}).subscribe(res =>{
         console.log("chemin",res);
         this.resultat = res["plan"]["itineraries"]
-
-        this.dismissLoading();
       })
   }
 
