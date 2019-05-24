@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { ActionSheetController } from '@ionic/angular';
 
 import { ApiService } from '../services/api.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-around-me',
@@ -16,7 +16,7 @@ export class AroundMePage implements OnInit {
 	constructor
 	(
 		private apiService : ApiService,
-		public actionSheet: ActionSheetController
+		private router:Router,
 	) 
 	{ 
 
@@ -106,34 +106,4 @@ export class AroundMePage implements OnInit {
 			enableHighAccuracy: true
 		});
 	}
-	
-	async presentActionSheet(element) {
-		const actionSheet = await this.actionSheet.create({
-		  header: 'Quel arret',
-		  buttons: [{
-			text: 'Annuler',
-			icon: 'close',
-			role: 'cancel',
-			handler: () => {
-			  console.log('Cancel clicked');
-			}
-		  }]
-		});
-		//non fonctionnel
-		//base pour le faire: https://forum.ionicframework.com/t/pass-data-into-ionic-actionsheet/45864/4
-		
-		//TODO: une fois que ça fonctionne, corriger element.zone en remplaçant le _ par :
-		//lien de base https://www.tutorialrepublic.com/faq/how-to-replace-character-inside-a-string-in-javascript.php
-		element.lines.forEach(el => {
-			var button = {
-				text:el,
-				handler: (i) =>{
-					console.log(el)
-					console.log(element)
-				}
-			}
-			actionSheet.buttons.push(JSON.stringify(button))
-		});
-		await actionSheet.present();
-	  }
 }
