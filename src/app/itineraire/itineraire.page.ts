@@ -131,6 +131,25 @@ export class ItinerairePage implements OnInit {
     else return false
   }
 
+
+   modeBus(val)
+  {
+    if (val == 'BUS')
+    {
+      return true
+    }
+    else return false
+  }
+
+  modeTram(val)
+  {
+    if (val == 'TRAM')
+    {
+      return true
+    }
+    else return false
+  }
+
   convertTimeStamp(timestamp)
   {
     var h = new Date(timestamp).getHours()
