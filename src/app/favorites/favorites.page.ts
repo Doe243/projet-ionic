@@ -40,7 +40,7 @@ export class FavoritesPage implements OnInit {
     })
   }
 
-  takeHoraires(idLigne,id,idArret,nameLine,color){
+  takeHoraires(idLigne,id,nameLine,color){
     this.router.navigate(["/horaire2",{id:idLigne,station:id,nameLine:nameLine,colorLine:color}])
   }
 
