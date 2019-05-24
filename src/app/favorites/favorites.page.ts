@@ -28,6 +28,12 @@ export class FavoritesPage implements OnInit {
     private router:Router) { }
 
   ngOnInit() {
+    
+  }
+
+  ionViewDidEnter()
+  {
+    this.favori = []
     this.storage.forEach(res =>{
       console.log(res)
       this.favori.push({idLine:res.idLine,idArret:res.idArret,nameLine:res.nameLine,color:res.colorLine,NameArret:res.nameArret})

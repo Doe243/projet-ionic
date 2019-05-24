@@ -14,7 +14,7 @@
   <ion-list-header>
       <ion-label><strong>{{affichageAller}}</strong></ion-label>
       <img (click)="AddFavorites(arret)"  src="../../assets/img/etoile.png" [ngStyle]="{'width': '50px','display':noFav}"/>
-      <img (click)="AddFavorites(arret)"  src="../../assets/img/etoile_complete.png" [ngStyle]="{'width': '50px','display':fav}"/>
+      <img (click)="RemoveFavorites(arret)"  src="../../assets/img/etoile_complete.png" [ngStyle]="{'width': '50px','display':fav}"/>
     </ion-list-header>
   <ion-item *ngFor="let item of horaireRetour; let i" color="light">
       <ion-label>
