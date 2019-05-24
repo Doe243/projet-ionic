@@ -29,7 +29,7 @@ export class ItinerairePage implements OnInit {
 	) 
 	{ 
     this.route.params.subscribe(param =>{
-      if(param.station)
+      if(param.station )
       {
         this.arretDepart = param.station
       }
