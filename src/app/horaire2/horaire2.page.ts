@@ -40,7 +40,7 @@ export class Horaire2Page implements OnInit {
       this.nameLine = param.nameLine
       this.colorLine = param.colorLine
       this.presentLoading();
-			this.apiService.getData(false,"horaireArret",{arret:this.arret,ligne:this.ligne}).subscribe(res =>
+			this.apiService.getData(false,"horaireArret",{ arret:this.arret,ligne:this.ligne }).subscribe(res =>
         {
           console.log("yyy",res)
           console.log(res.length)
