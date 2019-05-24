@@ -22,6 +22,8 @@ export class HorairePage implements OnInit {
 	information
 	nameArr:String
 
+	loading
+
 	constructor(
 		private router:Router, 
 		private route: ActivatedRoute,
@@ -36,39 +38,52 @@ export class HorairePage implements OnInit {
 			this.nameLine = param.nameLine
 			this.colorLine = param.color
 			console.log(this.idLigne)
-			//this.presentLoading()
+			this.presentLoading()
 			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{	
 				this.arrets = res[0]["arrets"]
-				//this.dismissLoading()      
+				this.dismissLoading()      
 			},err =>{
 				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
 				
-				//this.dismissLoading()
+				
 			})
 		})
 	}
 
-/*	async presentLoading() {
+  async presentLoading() 
+  {
 		this.loading = await this.loadingController.create({
 		  spinner: null,
-		  duration: 0,
+		  duration: 10000,
 		  message: 'Veuillez patienter svp...',
 		  translucent: true,
 		  cssClass: 'custom-class custom-loading'
 		});
 
-		await loading.present();
+    console.log('Loading present');
+    
+    this.loading.onDidDismiss().then(res => 
+      {
+        console.log("Dégage!!!");
 
-		return await this.loading.present();
-	}*/
+        if(!this.arrets)
+        { 
+          alert("Nous n'avons pu récupérer les données\nVeuillez vérifier votre connexion internet svp");
 
-	/*async dismissLoading() {
+        }
+      });
+
+    return await this.loading.present();
+    }
+    
+
+  async dismissLoading() 
+  {
 		
-
-		await loading.dismiss();
+		await this.loading.dismiss();
 	
 		console.log('Loading dismissed!');
-	}*/
+  }
 
 	ngOnInit()
 	{

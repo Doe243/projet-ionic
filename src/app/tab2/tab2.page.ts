@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../services/api.service';
 import { LineToLineMappedSource } from 'webpack-sources';
-import { IonSegment } from '@ionic/angular';
+import { IonSegment, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 
@@ -14,6 +14,9 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 export class Tab2Page implements OnInit{
   disp = "block";
   dispTrans = "none";
+
+  loading
+
 @ViewChild(IonSegment) segment: IonSegment;
 lines: Observable<any>;
   public items: Array<{id:String, gtfsId:String, shortName:String, longName:String,
@@ -29,7 +32,9 @@ lines: Observable<any>;
           public C38: Array<{id:String, gtfsId:String, shortName:String, longName:String,
             color:String, textColor:String, mode:String, type:String, res:String}> = [];
             
-  constructor(private apiService : ApiService, private router: Router){}
+  constructor(private apiService : ApiService, 
+    private router: Router,
+    public loadingController: LoadingController,){}
 
   ngOnInit() {
     this.segment.value = "Tag";
@@ -53,6 +58,7 @@ lines: Observable<any>;
     this.router.navigate(['horaire',{id:id,nameLine:nameLin,color:color}])
   }
   reseaux(){
+    this.presentLoading()
     this.apiService.getData(false,"lines").subscribe(line=>{
       line.forEach(element => {
         this.items.push({
@@ -93,7 +99,42 @@ lines: Observable<any>;
           this.C38.push(line);//end items.push
         }
       })//end items.foreach
+      this.dismissLoading()
     })
+
   }
 
+  async presentLoading() 
+  {
+		this.loading = await this.loadingController.create({
+		  spinner: null,
+		  duration: 10000,
+		  message: 'Veuillez patienter svp...',
+		  translucent: true,
+		  cssClass: 'custom-class custom-loading'
+		});
+
+    console.log('Loading present');
+    
+    this.loading.onDidDismiss().then(res => 
+      {
+        console.log("Dégage!!!");
+
+        if(this.items.length ==0)
+        { 
+          alert("Nous n'avons pu récupérer les données\nVeuillez vérifier votre connexion internet svp");
+
+        }
+      });
+
+    return await this.loading.present();
+    }
+    
+
+  async dismissLoading() 
+  {
+		await this.loading.dismiss();
+	
+		console.log('Loading dismissed!');
+  }
 }

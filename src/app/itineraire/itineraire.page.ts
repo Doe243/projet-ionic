@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service'
 import { formatDate } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-itineraire',
@@ -21,10 +22,13 @@ export class ItinerairePage implements OnInit {
 
   resultat
 
+  loading
+
   recherche
   constructor
 	(
     private route: ActivatedRoute,
+    public loadingController: LoadingController,
     private apiService : ApiService
 	) 
 	{ 
@@ -86,7 +90,8 @@ export class ItinerairePage implements OnInit {
 
   chercheDepart()
   {
-      this.apiService.getData(false, "itineraire", this.arretDepart).subscribe(res =>{
+    this.presentLoading()  
+    this.apiService.getData(false, "itineraire", this.arretDepart).subscribe(res =>{
         console.log("tout",res)
         res.forEach(element => {
           this.coordones1LA = element.geometry.coordinates[0]
@@ -113,6 +118,7 @@ export class ItinerairePage implements OnInit {
       lngA:this.coordones2LO,latA:this.coordones2LA,time:this.time,date:this.date}).subscribe(res =>{
         console.log("chemin",res);
         this.resultat = res["plan"]["itineraries"]
+        this.dismissLoading()
       })
   }
 
@@ -218,5 +224,40 @@ export class ItinerairePage implements OnInit {
   ionViewDidLeave()
   {
     this.closeEverything()
+  }
+
+  async presentLoading() 
+  {
+		this.loading = await this.loadingController.create({
+		  spinner: null,
+		  duration: 10000,
+		  message: 'Veuillez patienter svp...',
+		  translucent: true,
+		  cssClass: 'custom-class custom-loading'
+		});
+
+    console.log('Loading present');
+    
+    this.loading.onDidDismiss().then(res => 
+      {
+        console.log("Dégage!!!");
+
+        if(!this.resultat)
+        { 
+          alert("Nous n'avons pu récupérer les données.\nVeuillez verifier l'orthographe de vos recherches.\nSi le probleme persiste, veuillez vérifier votre connexion internet");
+
+        }
+      });
+
+    return await this.loading.present();
+    }
+    
+
+  async dismissLoading() 
+  {
+		
+		await this.loading.dismiss();
+	
+		console.log('Loading dismissed!');
   }
 }

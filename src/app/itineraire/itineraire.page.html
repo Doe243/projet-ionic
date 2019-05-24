@@ -52,9 +52,23 @@
                     <div *ngFor="let leg of item.legs">
                         <ion-col *ngIf="modeWalk(leg.mode)">
                           <ion-icon name="walk" style="color: #000; font-weight: bold"></ion-icon>
+                          <p>{{convertToMinutes(leg.duration)}}min</p>
                         </ion-col>
                         <ion-col *ngIf="modeBus(leg.mode)">
-                          <ion-icon name="bus" style="color: #000; font-weight: bold"></ion-icon>
+                          <div class="rond" [ngStyle]="{'background-color': '#'+leg.routeColor,'color':'#'+leg.routeTextColor}">
+                            <ion-avatar mode="ios" style="text-align:center; margin-left: auto; margin-right: auto; padding-top: 10px; font-weight: bold">
+                                <ion-label>{{leg.routeShortName}}</ion-label>
+                            </ion-avatar>
+                          </div>
+                          <p>{{convertToMinutes(leg.duration)}}min</p>
+                        </ion-col>
+                        <ion-col *ngIf="modeTram(leg.mode)">
+                          <div class="rond" [ngStyle]="{'background-color': '#'+leg.routeColor,'color':'#'+leg.routeTextColor}">
+                            <ion-avatar mode="ios" style="text-align:center; margin-left: auto; margin-right: auto; padding-top: 10px; font-weight: bold">
+                                <ion-label>{{leg.routeShortName}}</ion-label>
+                            </ion-avatar>
+                          </div>
+                          <p>{{convertToMinutes(leg.duration)}}min</p>
                         </ion-col>
                     </div>
               </ion-row>
