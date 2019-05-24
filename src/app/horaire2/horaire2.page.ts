@@ -30,7 +30,7 @@ export class Horaire2Page implements OnInit {
 			this.ligne = param.id
       this.arret = param.station
       this.presentLoading();
-			this.apiService.getData(false,"horaireArret",{arret:this.arret,ligne:this.ligne}).subscribe(res =>
+			this.apiService.getData(false,"horaireArret",{ arret:this.arret,ligne:this.ligne }).subscribe(res =>
         {
           //this.presentLoading();
     
@@ -38,7 +38,7 @@ export class Horaire2Page implements OnInit {
           this.affichageAller = res[0]["pattern"]["desc"]
           this.affichageRetour = res[1]["pattern"]["desc"]
           
-          this.horaireAller = [] 
+          this.horaireAller = []  
           if(res[1]["times"][0])
           {
             this.horaireAller.push(res[1]["times"][0])
