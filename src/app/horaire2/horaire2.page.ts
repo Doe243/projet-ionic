@@ -103,23 +103,36 @@ export class Horaire2Page implements OnInit {
     })
   }
 
-  async presentLoading() {
+  async presentLoading() 
+  {
 		this.loading = await this.loadingController.create({
 		  spinner: null,
-		  duration: 0,
+		  duration: 10000,
 		  message: 'Veuillez patienter svp...',
 		  translucent: true,
 		  cssClass: 'custom-class custom-loading'
 		});
 
-		console.log('Loading present');
+    console.log('Loading present');
+    
+    this.loading.onDidDismiss().then(res => 
+      {
+        console.log("Dégage!!!");
 
-		return await this.loading.present();
-	  }
+        if(!this.affichageAller && !this.affichageRetour)
+        { 
+          alert("Nous n'avons pu récupérer les données\nVeuillez vérifier votre connexion internet svp");
 
-	async dismissLoading() {
+        }
+      });
+
+    return await this.loading.present();
+    }
+    
+
+  async dismissLoading() 
+  {
 		
-
 		await this.loading.dismiss();
 	
 		console.log('Loading dismissed!');
