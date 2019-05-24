@@ -8,8 +8,13 @@
    
         <ion-list>
             <ion-item *ngFor="let item of favori" color="light">
+                <div (click)="takeHoraires(item.idLine,item.idArret,item.nameLine,item.color)"[ngStyle]="{'background-color': '#'+item.color,color:'black'}" style="height: 3rem; width: 3rem">
+                    <ion-avatar mode="ios" style="text-align:center; margin: 0 auto; padding-top: 10px; font-weight: bold">
+                      {{item.nameLine}}
+                    </ion-avatar>
+                </div>
                 <ion-label>
-                  <h3>{{item.line}}</h3>
+                  <h2 style="padding-left: 10px">{{item.NameArret}}</h2>
                 </ion-label>
               </ion-item>
         </ion-list>

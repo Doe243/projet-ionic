@@ -3,6 +3,7 @@ import { ApiService } from '../services/api.service';
 import { Storage } from '@ionic/storage';
 import { element } from '@angular/core/src/render3';
 import { ImplicitReceiver } from '@angular/compiler';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-favorites',
@@ -10,7 +11,7 @@ import { ImplicitReceiver } from '@angular/compiler';
   styleUrls: ['./favorites.page.scss'],
 })
 export class FavoritesPage implements OnInit {
-  public favori: Array<{line:String,arret:String}>=[]
+  public favori: Array<{idArret:String,idLine:String,nameLine:String,color:String,NameArret:String}>=[]
   public favorites: Array<{idArret:String,idLine:String,nameLine:String,color:String,NameArret:String}>=[]
   arrets
   horaireAller
@@ -22,35 +23,17 @@ export class FavoritesPage implements OnInit {
   lineSave:String
 
   constructor(		private apiService: ApiService,
-		private storage: Storage) { }
+		private storage: Storage, 
+    private router:Router) { }
 
   ngOnInit() {
-    this.takeStorage()
-  }
-
-  public takeStorage(){
-    this.storage.length().then(result =>{
-      this.storage.forEach(res =>{
-        this.favori.push({line:res.idLine,arret:res.idArret})
-        this.cantSto++
-        if(this.cantSto==result){
-          this.takeFicheHoraire()
-        }
-      })
-      });
-  }
-
-  takeFicheHoraire(){
-    this.favori.forEach(res=>{
-      this.lineSave = res.line
-      this.lineReplace = this.lineSave.replace(/:/g, "_")
-      this.apiService.getData(false,"lineInfo",this.lineReplace).subscribe(ret=>{
-        console.log(ret)
-        console.log(ret.features[0].properties.NUMERO)
-        console.log(ret.features[0].properties.COULEUR)
-      })
-
+    this.storage.forEach(res =>{
+      this.favori.push({idLine:res.idLine,idArret:res.idArret,nameLine:res.nameLine,color:res.colorLine,NameArret:res.nameArret})
     })
+  }
+
+  takeHoraires(idLigne,id,idArret,nameLine,color){
+    this.router.navigate(["/horaire2",{id:idLigne,station:id,nameLine:nameLine,colorLine:color}])
   }
 
 

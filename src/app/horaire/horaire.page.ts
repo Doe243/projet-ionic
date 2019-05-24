@@ -11,6 +11,8 @@ import { LoadingController } from '@ionic/angular';
 export class HorairePage implements OnInit {
 
 	idLigne
+	nameLine
+	colorLine
     arrets
 	loading
 
@@ -25,20 +27,22 @@ export class HorairePage implements OnInit {
 		
 		this.route.params.subscribe(param =>{
 			this.idLigne = param.id
-			this.presentLoading()
-			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{				
-        		console.log(res[0])
+			this.nameLine = param.nameLine
+			this.colorLine = param.color
+			console.log(this.idLigne)
+			//this.presentLoading()
+			this.apiService.getData(false,"ficheHoraire",this.idLigne).subscribe(res =>{	
 				this.arrets = res[0]["arrets"]
-				this.dismissLoading()      
+				//this.dismissLoading()      
 			},err =>{
 				alert("Impossible de récupérer la ligne. vérifiez votre connection internet et réessayez")
-				console.log(err)
-				this.dismissLoading()
+				
+				//this.dismissLoading()
 			})
 		})
 	}
 
-	async presentLoading() {
+/*	async presentLoading() {
 		this.loading = await this.loadingController.create({
 		  spinner: null,
 		  duration: 0,
@@ -50,15 +54,15 @@ export class HorairePage implements OnInit {
 		console.log('Loading present');
 
 		return await this.loading.present();
-	  }
+	}*/
 
-	async dismissLoading() {
+	/*async dismissLoading() {
 		
 
 		await this.loading.dismiss();
 	
 		console.log('Loading dismissed!');
-	}
+	}*/
 
 	ngOnInit()
 	{
@@ -73,7 +77,7 @@ export class HorairePage implements OnInit {
   
 	showHoraire(id)
 	{
-		this.router.navigate(["/horaire2",{id:this.idLigne,station:id}])
+		this.router.navigate(["/horaire2",{id:this.idLigne,station:id,nameLine:this.nameLine,colorLine:this.colorLine}])
 	}
 	
 
