@@ -30,7 +30,10 @@ export class ApiService {
         return this.http.get(`${API_URL}/routers/default/index/routes`).pipe(
           map(lines => 
             lines
-          )
+          ),
+          catchError(err => {
+            return err;
+          })
         )
         
       }
@@ -39,7 +42,10 @@ export class ApiService {
         return this.http.get(`${API_URL}/linesNear/json?x=${objet['lng']}&y=${objet['lat']}&dist=${objet['distance']}&details=true`).pipe(
           map(res => 
             res 
-          )
+          ),
+          catchError(err => {
+            return err;
+          })
         )
       }
       else if (requeteType == "itineraire")
@@ -47,7 +53,10 @@ export class ApiService {
         return this.http.get(`${API_URL}/findType/json?types=arret&query=${objet}`).pipe(
           map(res => 
             res['features']
-          )
+          ),
+          catchError(err => {
+            return err;
+          })
         )
       }
       else if (requeteType == "horaireArret")
@@ -55,7 +64,10 @@ export class ApiService {
         return this.http.get(`${API_URL}/routers/default/index/clusters/${objet.arret}/stoptimes?route=${objet.ligne}`).pipe(
           map(res =>
             res
-          )
+          ),
+          catchError(err => {
+            return err;
+          })
         )
       }
       else if (requeteType == "ficheHoraire")
@@ -63,21 +75,30 @@ export class ApiService {
         return this.http.get(`${API_URL}/ficheHoraires/json?route=${objet}`).pipe(
           map(res =>
             res
-          )
+          ),
+          catchError(err => {
+            return err;
+          })
         )
       }else if (requeteType == "rechercheItineraire")
       {
         return this.http.get(`${API_URL}/routers/default/plan?routerId=prod&mode=WALK,TRANSIT&showIntermediateStops=true&minTransferTime=60&transferPenalty=60&numItineraries=2&walkBoardCost=300&bikeBoardCost=600&fromPlace=${objet['lngD']},${objet['latD']}&toPlace=${objet['lngA']},${objet['latA']}&arriveBy=false&time=${objet['time']}&date=${objet['date']}&ui_date=&walkSpeed=1.1112&walkReluctance=5&locale=fr_FR`).pipe(
           map(res =>
             res
-          )
+          ),
+          catchError(err => {
+            return err;
+          })
         )
       }else if (requeteType == "listLieu")
       {
         return this.http.get(`${API_URL}/find/json?query=${objet}&types=arret,lieux,rues`).pipe(
           map(res =>
             res
-          )
+          ),
+          catchError(err => {
+            return err;
+          })
         )
       }
       
