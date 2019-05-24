@@ -38,7 +38,7 @@ export class Horaire2Page implements OnInit {
           this.affichageAller = res[0]["pattern"]["desc"]
           this.affichageRetour = res[1]["pattern"]["desc"]
           
-          this.horaireAller = []
+          this.horaireAller = [] 
           if(res[1]["times"][0])
           {
             this.horaireAller.push(res[1]["times"][0])
