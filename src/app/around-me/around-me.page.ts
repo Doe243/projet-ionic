@@ -86,7 +86,7 @@ export class AroundMePage implements OnInit {
 						var deletePart = MonString.split("-")[0]
 						MonString = MonString.substring(deletePart.length+2 )
 					}
-					this.router.navigate(["itineraire",{station:MonString}])
+					this.router.navigate(["itineraire",{station:MonString}] )
 				})
 			});
 		})
