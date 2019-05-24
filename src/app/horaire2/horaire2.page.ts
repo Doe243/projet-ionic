@@ -48,7 +48,7 @@ export class Horaire2Page implements OnInit {
           if(res.length==2){
           this.affichageRetour = res[1]["pattern"]["desc"]
           }
-          this.nameArret = res[0].pattern.desc
+          this.nameArret = res[0].times[0].stopName
           this.horaireAller = []
           if(res.length==2){
           if(res[1]["times"][0])
@@ -84,19 +84,23 @@ export class Horaire2Page implements OnInit {
 				
       })
     })
+    
+
+   }
+
+  ngOnInit() {
+    
+  }
+
+  ionViewDidEnter()
+  {
     this.storage.forEach(res =>{
       if(this.arret==res.idArret){
         console.log("egal")
         this.noFav = "none"
         this.fav = "block"
       }
-      //this.favori.push({idLine:res.idLine,idArret:res.idArret,nameLine:res.nameLine,color:res.colorLine,NameArret:res.nameArret})
     })
-
-   }
-
-  ngOnInit() {
-    
   }
 
   async presentLoading() {
@@ -124,6 +128,13 @@ export class Horaire2Page implements OnInit {
   AddFavorites(idArret){
 		this.information = {idArret: idArret,idLine: this.ligne,nameLine:this.nameLine,colorLine:this.colorLine,nameArret:this.nameArret}
     this.apiService.setLocalData(idArret,this.information)
+    this.noFav = "none"
+    this.fav = "block"
+  }
+  RemoveFavorites(idArret){
+    this.storage.remove(idArret)
+    this.noFav = "block"
+    this.fav = "none"
   }
   
   
